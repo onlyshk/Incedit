@@ -208,15 +208,13 @@ class Incedit:
         response = dialog.run()
          
         if response == gtk.RESPONSE_OK:
-            
+            self.tab_panel.set_current_page(pages_num)    
             self.tab_panel.new_tab().set_buffer(self.textbuffer)
             self.textbuffer.set_text(open(dialog.get_filename()).read())
  
             self.main_window.set_title(utils.cut_file_name(dialog.get_filename()))
             self.statusbar.push(1,dialog.get_filename()) 
             self.statusbar.push(1,str(pages_num + 1))
-  
-            self.tab_panel.set_current_page(pages_num)    
  
             self.main_window.show_all()  
         elif response == gtk.RESPONSE_CANCEL:
