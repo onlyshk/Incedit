@@ -180,11 +180,12 @@ class Incedit:
     #
     def new_file(self,widget):
         pages_num = self.tab_panel.get_n_pages()
-        self.tab_panel.set_current_page(self.tab_panel.get_n_pages()) 
-        self.tab_panel.new_tab()       
-        self.statusbar.push(1,"")
-        self.main_window.show_all()
-        self.tab_panel.set_current_page(pages_num + 1) 
+
+        self.tab_panel.new_tab()      
+        self.main_window.show_all() 
+
+        self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
+        
     #
     #Open file
     #
@@ -214,9 +215,10 @@ class Incedit:
  
             self.main_window.set_title(utils.cut_file_name(dialog.get_filename()))
             self.statusbar.push(1,dialog.get_filename()) 
-            self.statusbar.push(1,str(pages_num + 1))
  
             self.main_window.show_all()  
+
+            self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
         elif response == gtk.RESPONSE_CANCEL:
             pass
 
