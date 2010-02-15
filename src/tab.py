@@ -24,7 +24,7 @@ from editor import Editor
 # Tab class providing
 #
 class Tab(gtk.Notebook):
- 
+
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
@@ -34,23 +34,25 @@ class Tab(gtk.Notebook):
   #add new tab function
   #
   def new_tab(self):
-      editor = Editor()
+      self.editor = Editor()
       scrolled_window = gtk.ScrolledWindow()
       
       self.add(scrolled_window)
-      scrolled_window. add_with_viewport(editor)
+      scrolled_window. add_with_viewport(self.editor)
  
       scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
-      label = self.create_tab_label("New File",editor)
+      label = self.create_tab_label("New File",self.editor)
            
       self.set_tab_label_packing(scrolled_window,False,False,2)
       self.set_tab_label(scrolled_window,label)
  
       label.show_all()
  
-      return editor
+      return self.editor
     
+  def get_editor(self):
+      pass
   #
   #create tab button close and label
   #

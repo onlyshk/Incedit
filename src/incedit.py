@@ -127,6 +127,7 @@ class Incedit:
         #signals
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
+        self.file_save_as.connect("activate",self.save_as_file)
           
         self.vbox.pack_start(self.main_menu, False, False, 0)
 
@@ -175,6 +176,7 @@ class Incedit:
         #toolbar signals
         self.create_bar.connect("clicked",self.new_file)
         self.open_bar.connect("clicked",self.open_file)
+        self.save_bar.connect("clicked",self.save_as_file)
     #
     # add new file
     #
@@ -219,8 +221,9 @@ class Incedit:
             self.main_window.show_all()  
 
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
+
         elif response == gtk.RESPONSE_CANCEL:
-            pass
+            dialog.destroy()
 
         dialog.destroy()
 
@@ -233,9 +236,39 @@ class Incedit:
     #
     #Save as file
     #
-    def save_as_file(self):
-        pass
-    
+    def save_as_file(self,widget):
+        dialog = gtk.FileChooserDialog("Save..",
+                                       None,
+                                       gtk.FILE_CHOOSER_ACTION_SAVE,
+                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                       gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+
+        txt_filter=gtk.FileFilter()
+        txt_filter.set_name("Text files")
+        txt_filter.add_mime_type("text/*")
+        all_filter=gtk.FileFilter()
+        all_filter.set_name("All files")
+        all_filter.add_pattern("*")
+
+        dialog.add_filter(txt_filter)
+        dialog.add_filter(all_filter)
+        
+        dialog.show()
+        response = dialog.run()
+           
+        if response == gtk.RESPONSE_OK:
+             name = dialog.get_filename()
+             self.editor.set_buffer(self.textbuffer)
+
+             file_save = open(name,"w")
+             file_save.write(self.textbuffer.get_text(self.textbuffer.get_start_iter(),
+                                      self.textbuffer.get_end_iter()))
+             file_save.close()
+        
+        elif response == gtk.RESPONSE_CANCEL:
+             dialog.destroy()
+
     def main(self):
         gtk.main()
 

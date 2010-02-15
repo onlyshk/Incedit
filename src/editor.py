@@ -24,3 +24,4 @@ class Editor(gtk.TextView):
   
   def __init__(self):
     gtk.TextView.__init__(self)
+    
