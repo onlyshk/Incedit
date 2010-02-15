@@ -16,39 +16,39 @@
 # 
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-import gtk
-
+ 
+import gtk 
 from editor import Editor
 #
 # Tab class providing
 #
 class Tab(gtk.Notebook):
-
+ 
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
-    pages = 1
   
+  def editor_access(self):
+      self.editor = Editor()
+      return self.editor
   #
   #add new tab function
   #
   def new_tab(self):
-      self.editor = Editor()
       scrolled_window = gtk.ScrolledWindow()
       
       self.add(scrolled_window)
-      scrolled_window. add_with_viewport(self.editor)
+      scrolled_window.add_with_viewport(self.editor_access())
  
       scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
-      label = self.create_tab_label("New File",self.editor)
+      label = self.create_tab_label("New File",self.editor_access)
            
       self.set_tab_label_packing(scrolled_window,False,False,2)
       self.set_tab_label(scrolled_window,label)
- 
+      
       label.show_all()
- 
+
       return self.editor
     
   def get_editor(self):
@@ -66,13 +66,49 @@ class Tab(gtk.Notebook):
    
       closebtn.set_image(image)
       closebtn.set_relief(gtk.RELIEF_NONE)
-
+ 
       box.pack_start(label, True, True)
       box.pack_end(closebtn, False, False)
     
       closebtn.connect("clicked",self.close_tab)
     
       return box 
+
+  #
+  #save as text from current text view
+  #
+  def save_as_file(self):
+      dialog = gtk.FileChooserDialog("Save..",
+                                     None,
+                                     gtk.FILE_CHOOSER_ACTION_SAVE,
+                                     (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                     gtk.STOCK_SAVE, gtk.RESPONSE_OK))
+      
+      txt_filter=gtk.FileFilter()
+      txt_filter.set_name("Text files")
+      txt_filter.add_mime_type("text/*")
+      all_filter=gtk.FileFilter()
+      all_filter.set_name("All files")
+      all_filter.add_pattern("*")
+ 
+      dialog.add_filter(txt_filter)
+      dialog.add_filter(all_filter)
+        
+      dialog.show()
+      response = dialog.run()
+           
+      if response == gtk.RESPONSE_OK:
+          name = dialog.get_filename()
+          file_save = open(name,"w")
+          textbuffer = self.editor.get_buffer()
+          file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),textbuffer.get_end_iter()))
+          file_save.close()
+          dialog.destroy()
+          
+      elif response == gtk.RESPONSE_CANCEL:
+          dialog.destroy()
+             
+ 
   #
   #close tab
   #
@@ -80,7 +116,5 @@ class Tab(gtk.Notebook):
   
       if self.get_n_pages() != self.get_current_page():
           self.set_current_page(self.get_n_pages())
-
-      self.remove_page(self.get_current_page())
  
-  
+      self.remove_page(self.get_current_page())
