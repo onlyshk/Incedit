@@ -70,6 +70,7 @@ class Incedit:
         self.save_as_menu        = gtk.Menu()
         self.close_file_menu     = gtk.Menu()
         self.close_all_file_menu = gtk.Menu()
+        self.exit_menu           = gtk.Menu()
  
         #add sub-menu menu items
         self.file_item = gtk.MenuItem("File")
@@ -89,30 +90,39 @@ class Incedit:
         
         self.close_all_file_item = gtk.MenuItem("Close All file")
         self.close_all_file_item.set_submenu(self.close_all_file_menu)
+
+        self.exit_file_item = gtk.MenuItem("Exit")
+        self.exit_file_item.set_submenu(self.exit_menu)
  
         #image file menu items
         self.file_new = gtk.ImageMenuItem(gtk.STOCK_NEW, agr)
-        key, mod = gtk.accelerator_parse("N")
+        key,mod = gtk.accelerator_parse("<Control>n")
         self.file_new.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
-        
+
         self.file_open = gtk.ImageMenuItem(gtk.STOCK_OPEN,agr)
-        key, mod = gtk.accelerator_parse("O")
-        self.file_new.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+        key,mod = gtk.accelerator_parse("<Control>o")
+        self.file_open.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
         
         self.file_save = gtk.ImageMenuItem(gtk.STOCK_SAVE,agr)
-        key, mod = gtk.accelerator_parse("S")
+        key, mod = gtk.accelerator_parse("<Control>s")
         self.file_save.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
         self.file_save_as = gtk.ImageMenuItem(gtk.STOCK_SAVE_AS,agr)
+        key, mod = gtk.accelerator_parse("<Shift><Control>s")
         self.file_save_as.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
         self.file_close = gtk.ImageMenuItem(gtk.STOCK_CLOSE,agr)
-        key, mod = gtk.accelerator_parse("W")
+        key, mod = gtk.accelerator_parse("<Control>w")
         self.file_close.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
         self.file_close_all = gtk.ImageMenuItem(gtk.STOCK_CLOSE,agr)
+        key, mod = gtk.accelerator_parse("<Shift><Control>s")
         self.file_close_all.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
+        self.file_exit = gtk.ImageMenuItem(gtk.STOCK_QUIT,agr)
+        key, mod = gtk.accelerator_parse("<Control>q")
+        self.file_exit.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
         # add menu
         self.file_menu.append(self.file_new)
         self.file_menu.append(self.file_open)       
@@ -120,7 +130,8 @@ class Incedit:
         self.file_menu.append(self.file_save_as)
         self.file_menu.append(self.file_close)
         self.file_menu.append(self.file_close_all)
- 
+        self.file_menu.append(self.file_exit) 
+
         self.main_menu.append(self.file_item)
                
         #signals
@@ -128,7 +139,8 @@ class Incedit:
         self.file_open.connect("activate",self.open_file)
         self.file_save.connect("activate",self.save_file)
         self.file_save_as.connect("activate",self.save_as_file)
-          
+        self.file_exit.connect("activate",self.exit)
+
         self.vbox.pack_start(self.main_menu, False, False, 0)
  
     #
@@ -239,6 +251,12 @@ class Incedit:
         #self.main_window.set_title(utils.cut_file_name(file_name))
         #self.tab_panel.set_tab_label_text(set_tab_label_text")
         self.main_window.show_all()
+
+    #
+    #quit application
+    #
+    def exit(self,widget):
+        gtk.main_quit()
 
     def main(self):
         gtk.main()
