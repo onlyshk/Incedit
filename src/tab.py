@@ -33,28 +33,36 @@ class Tab(gtk.Notebook):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
   
+  #
+  #main editor provide
+  #
   def editor_access(self):
       self.editor = Editor()
       return self.editor
 
-  def scrool_wnd(self):
-      self.scrolled_window = gtk.ScrolledWindow()
-      return self.scrolled_window
+  #
+  #tab-label provide
+  #
+  def set_label(self,label):
+      label = self.create_tab_label(label,self.editor_access)
+      self.set_tab_label_packing(self.scrolled_window,False,False,2)
+      self.set_tab_label(self.scrolled_window,label)
+      label.show_all()
   #
   #add new tab function
   #
   def new_tab(self,label):
-      scrolled_window = gtk.ScrolledWindow()
+      self.scrolled_window = gtk.ScrolledWindow()
       
-      self.add(scrolled_window)
-      scrolled_window.add_with_viewport(self.editor_access())
+      self.add(self.scrolled_window)
+      self.scrolled_window.add_with_viewport(self.editor_access())
  
-      scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+      self.scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
       label = self.create_tab_label(label,self.editor_access)
            
-      self.set_tab_label_packing(scrolled_window,False,False,2)
-      self.set_tab_label(scrolled_window,label)
+      self.set_tab_label_packing(self.scrolled_window,False,False,2)
+      self.set_tab_label(self.scrolled_window,label)
       
       label.show_all()
 
@@ -81,7 +89,7 @@ class Tab(gtk.Notebook):
     
       closebtn.connect("clicked",self.close_tab)
     
-      return box 
+      return box
 
   #
   #save as text from current text view
@@ -110,18 +118,22 @@ class Tab(gtk.Notebook):
           file_name = dialog.get_filename()
           file_name = utils.cut_file_name(file_name)
 
+          label = gtk.Label(file_name)
+
           file_save = open(file_name,"w")
           
           textbuffer = self.editor.get_buffer()
           
           file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                               textbuffer.get_end_iter()))
-
+        
+          self.set_label(gtk.Label(file_name).get_text())
+        
           file_save.close()          
           dialog.destroy() 
-  
+       
           self.show_all()
-
+        
           return file_name     
  
       elif response == gtk.RESPONSE_CANCEL:
