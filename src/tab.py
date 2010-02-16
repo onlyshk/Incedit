@@ -114,7 +114,8 @@ class Tab(gtk.Notebook):
           
           textbuffer = self.editor.get_buffer()
           
-          file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),textbuffer.get_end_iter()))
+          file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),
+                                              textbuffer.get_end_iter()))
           file_save.close()          
           dialog.destroy() 
   
