@@ -43,7 +43,7 @@ class Tab(gtk.Notebook):
   #
   #add new tab function
   #
-  def new_tab(self):
+  def new_tab(self,label):
       scrolled_window = gtk.ScrolledWindow()
       
       self.add(scrolled_window)
@@ -51,7 +51,7 @@ class Tab(gtk.Notebook):
  
       scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
-      label = self.create_tab_label("New File",self.editor_access)
+      label = self.create_tab_label(label,self.editor_access)
            
       self.set_tab_label_packing(scrolled_window,False,False,2)
       self.set_tab_label(scrolled_window,label)
@@ -118,8 +118,6 @@ class Tab(gtk.Notebook):
           file_save.close()          
           dialog.destroy() 
   
-          self.set_tab_label_text(self.scrolled_window,"ASD")
-
           self.show_all()
 
           return file_name     

@@ -50,7 +50,7 @@ class Incedit:
         
         self.main_window.add(self.vbox)
          
-        self.tab_panel.new_tab()
+        self.tab_panel.new_tab("New file")
  
         self.main_window.show_all()
     #
@@ -181,7 +181,7 @@ class Incedit:
     def new_file(self,widget):
         pages_num = self.tab_panel.get_n_pages()
  
-        self.tab_panel.new_tab()      
+        self.tab_panel.new_tab("New File")      
         self.main_window.show_all() 
         
         self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
@@ -209,7 +209,7 @@ class Incedit:
          
         if response == gtk.RESPONSE_OK:
             self.tab_panel.set_current_page(pages_num)    
-            self.tab_panel.new_tab().set_buffer(self.textbuffer)
+            self.tab_panel.new_tab(str(utils.cut_file_name(dialog.get_filename()))).set_buffer(self.textbuffer)
             self.textbuffer.set_text(open(dialog.get_filename()).read())
  
             self.main_window.set_title(utils.cut_file_name(dialog.get_filename()))
@@ -217,7 +217,7 @@ class Incedit:
             self.main_window.show_all()  
             
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
-            self.tab_panel.set_tab_label_text(self.tab_panel,"ASD")
+            self.main_window.show_all()
 
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
@@ -234,15 +234,9 @@ class Incedit:
     #Save as file
     #
     def save_as_file(self,widget):
+        tab.Tab.save_as_file(self.tab_panel)
 
-        file_name = tab.Tab.save_as_file(self.tab_panel)
-        
-        #self.tab_panel.set_tab_label_text(tab.Tab.editor_access(self.tab_panel),"ASD")
-        self.main_window.set_title(utils.cut_file_name(file_name))
-        
         self.main_window.show_all()
-
-        
 
     def main(self):
         gtk.main()
