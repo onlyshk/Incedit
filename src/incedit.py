@@ -235,8 +235,8 @@ class Incedit:
     #Save as file
     #
     def save_as_file(self,widget):
-        tab.Tab.save_as_file(self.tab_panel)
-
+        file_name = tab.Tab.save_as_file(self.tab_panel)
+        self.main_window.set_title(utils.cut_file_name(file_name))
         self.main_window.show_all()
 
     def main(self):
