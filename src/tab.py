@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
 import gtk 
-
+import utils
 from incedit import Incedit
 from editor import Editor
 
@@ -36,6 +36,10 @@ class Tab(gtk.Notebook):
   def editor_access(self):
       self.editor = Editor()
       return self.editor
+
+  def scrool_wnd(self):
+      self.scrolled_window = gtk.ScrolledWindow()
+      return self.scrolled_window
   #
   #add new tab function
   #
@@ -101,27 +105,39 @@ class Tab(gtk.Notebook):
         
       dialog.show()
       response = dialog.run()
-           
+     
       if response == gtk.RESPONSE_OK:
-          name = dialog.get_filename()
-          file_save = open(name,"w")
-          textbuffer = self.editor.get_buffer()
-          file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),textbuffer.get_end_iter()))
-          file_save.close()
-          dialog.destroy()
+          file_name = dialog.get_filename()
+          file_name = utils.cut_file_name(file_name)
+
+          file_save = open(file_name,"w")
           
+          textbuffer = self.editor.get_buffer()
+          
+          file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),textbuffer.get_end_iter()))
+          file_save.close()          
+          dialog.destroy() 
+  
+          self.set_tab_label_text(self.scrolled_window,"ASD")
+
+          self.show_all()
+
+          return file_name     
+ 
       elif response == gtk.RESPONSE_CANCEL:
           dialog.destroy()
         
       already_save = True             
-
+     
+      dialog.destroy()
   #
   #save file
   #
   def save_file(self):
       if already_save == False:
           self.save_as_file()
-      pass
+      else:
+          pass
  
   #
   #close tab

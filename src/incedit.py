@@ -214,11 +214,11 @@ class Incedit:
  
             self.main_window.set_title(utils.cut_file_name(dialog.get_filename()))
             self.statusbar.push(1,dialog.get_filename()) 
-            self.statusbar.push(1,str(self.doc_num))
             self.main_window.show_all()  
- 
-            self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
             
+            self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
+            self.tab_panel.set_tab_label_text(self.tab_panel,"ASD")
+
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
  
@@ -234,10 +234,16 @@ class Incedit:
     #Save as file
     #
     def save_as_file(self,widget):
-        tab.Tab.save_as_file(self.tab_panel)
 
-        main_window.set_title(utils.cut_file_name(dialog.get_filename()))
- 
+        file_name = tab.Tab.save_as_file(self.tab_panel)
+        
+        #self.tab_panel.set_tab_label_text(tab.Tab.editor_access(self.tab_panel),"ASD")
+        self.main_window.set_title(utils.cut_file_name(file_name))
+        
+        self.main_window.show_all()
+
+        
+
     def main(self):
         gtk.main()
  
