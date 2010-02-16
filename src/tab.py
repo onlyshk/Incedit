@@ -18,12 +18,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
 import gtk 
+
+from incedit import Incedit
 from editor import Editor
+
 #
 # Tab class providing
 #
 class Tab(gtk.Notebook):
- 
+
+  already_save = False
+  
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
@@ -107,7 +112,16 @@ class Tab(gtk.Notebook):
           
       elif response == gtk.RESPONSE_CANCEL:
           dialog.destroy()
-             
+        
+      already_save = True             
+
+  #
+  #save file
+  #
+  def save_file(self):
+      if already_save == False:
+          self.save_as_file()
+      pass
  
   #
   #close tab

@@ -22,10 +22,9 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import sys
- 
-from tab    import Tab 
+
 from editor import Editor
- 
+import tab
 import utils
  
 #
@@ -93,15 +92,15 @@ class Incedit:
  
         #image file menu items
         self.file_new = gtk.ImageMenuItem(gtk.STOCK_NEW, agr)
-        key, mod = gtk.accelerator_parse("CTRL + N")
+        key, mod = gtk.accelerator_parse("N")
         self.file_new.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
         
         self.file_open = gtk.ImageMenuItem(gtk.STOCK_OPEN,agr)
-        key, mod = gtk.accelerator_parse("CTRL + O")
+        key, mod = gtk.accelerator_parse("O")
         self.file_new.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
         
         self.file_save = gtk.ImageMenuItem(gtk.STOCK_SAVE,agr)
-        key, mod = gtk.accelerator_parse("CTRL + S")
+        key, mod = gtk.accelerator_parse("S")
         self.file_save.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
         self.file_save_as = gtk.ImageMenuItem(gtk.STOCK_SAVE_AS,agr)
@@ -127,6 +126,7 @@ class Incedit:
         #signals
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
+        self.file_save.connect("activate",self.save_file)
         self.file_save_as.connect("activate",self.save_as_file)
           
         self.vbox.pack_start(self.main_menu, False, False, 0)
@@ -135,7 +135,7 @@ class Incedit:
     # Init editor's elements
     #
     def initializeEditor(self):
-        self.tab_panel = Tab()
+        self.tab_panel = tab.Tab()
  
         self.statusbar = gtk.Statusbar()
  
@@ -227,14 +227,16 @@ class Incedit:
     #
     #Save file
     #
-    def save_file(self):
-        pass
+    def save_file(self,widget):
+        Tab.save_as_file(self.tab_panel)
  
     #
     #Save as file
     #
     def save_as_file(self,widget):
-        Tab.save_as_file(self.tab_panel)
+        tab.Tab.save_as_file(self.tab_panel)
+
+        main_window.set_title(utils.cut_file_name(dialog.get_filename()))
  
     def main(self):
         gtk.main()
