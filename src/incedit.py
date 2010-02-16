@@ -59,7 +59,11 @@ class Incedit:
     def init_menu(self):  
         agr = gtk.AccelGroup()
         self.main_window.add_accel_group(agr)
-         
+
+        self.separator1 = gtk.SeparatorMenuItem()
+        self.separator2 = gtk.SeparatorMenuItem()
+        self.separator3 = gtk.SeparatorMenuItem()
+
         #ain menu
         self.main_menu = gtk.MenuBar()
         
@@ -78,7 +82,7 @@ class Incedit:
         
         self.open_item = gtk.MenuItem("Open")
         self.open_item.set_submenu(self.open_menu)
-        
+    
         self.save_item = gtk.MenuItem("Save")
         self.save_item.set_submenu(self.save_menu)          
         
@@ -126,14 +130,17 @@ class Incedit:
         # add menu
         self.file_menu.append(self.file_new)
         self.file_menu.append(self.file_open)       
+        self.file_menu.append(self.separator1)
         self.file_menu.append(self.file_save)
         self.file_menu.append(self.file_save_as)
+        self.file_menu.append(self.separator2)
         self.file_menu.append(self.file_close)
         self.file_menu.append(self.file_close_all)
+        self.file_menu.append(self.separator3)
         self.file_menu.append(self.file_exit) 
 
         self.main_menu.append(self.file_item)
-               
+         
         #signals
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
@@ -155,8 +162,8 @@ class Incedit:
  
         self.toolbutton = gtk.Button() 
  
-        self.textbuffer = gtk.TextBuffer()   
- 
+        self.textbuffer = gtk.TextBuffer()  
+         
         self.vbox.pack_start(self.toolbar,False,False,0)
         self.vbox.add(self.tab_panel)
         self.vbox.pack_start(self.statusbar,False,False,0)
@@ -248,8 +255,6 @@ class Incedit:
     #
     def save_as_file(self,widget):
         tab.Tab.save_as_file(self.tab_panel)
-        #self.main_window.set_title(utils.cut_file_name(file_name))
-        #self.tab_panel.set_tab_label_text(set_tab_label_text")
         self.main_window.show_all()
 
     #
@@ -258,6 +263,9 @@ class Incedit:
     def exit(self,widget):
         gtk.main_quit()
 
+    #
+    #MAIN
+    #
     def main(self):
         gtk.main()
  
