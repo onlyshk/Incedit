@@ -21,6 +21,8 @@ import gtk
 import utils
 from incedit import Incedit
 from editor import Editor
+import re
+import string
 
 #
 # Tab class providing
@@ -68,7 +70,8 @@ class Tab(gtk.Notebook):
       
       label.show_all()
       self.saving = False
-
+      self.already_save.insert(0,self.get_n_pages() - 1) 
+      print self.get_n_pages()
       return self.editor
     
   def get_editor(self):
@@ -89,7 +92,7 @@ class Tab(gtk.Notebook):
  
       box.pack_start(label, True, True)
       box.pack_end(closebtn, False, False)
-    
+      
       closebtn.connect("clicked",self.close_tab)
     
       return box
@@ -119,8 +122,7 @@ class Tab(gtk.Notebook):
       file_name = dialog.get_filename()
 
       if file_name not in self.already_save:
-         self.already_save.append(file_name)
-      
+         self.already_save.insert(self.get_current_page(),file_name) 
       if response == gtk.RESPONSE_OK:
           label = gtk.Label(file_name)
 
@@ -142,6 +144,7 @@ class Tab(gtk.Notebook):
 
       dialog.destroy()
       self.saving = True
+
       return file_name
   #
   #save file
@@ -150,7 +153,8 @@ class Tab(gtk.Notebook):
       if self.saving == False:
          self.save_as_file()
 
-      elif self.already_save[0] != True:   
+      #elif self.already_save[0] != True:   
+      else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
          print name_of_file
