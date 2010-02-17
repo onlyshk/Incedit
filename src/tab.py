@@ -27,8 +27,9 @@ from editor import Editor
 #
 class Tab(gtk.Notebook):
 
-  already_save = False
-  
+  already_save = []
+  saving = False
+
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
@@ -65,6 +66,7 @@ class Tab(gtk.Notebook):
       self.set_tab_label(self.scrolled_window,label)
       
       label.show_all()
+      self.saving = False
 
       return self.editor
     
@@ -95,6 +97,7 @@ class Tab(gtk.Notebook):
   #save as text from current text view
   #
   def save_as_file(self):
+      
       dialog = gtk.FileChooserDialog("Save..",
                                      None,
                                      gtk.FILE_CHOOSER_ACTION_SAVE,
@@ -107,50 +110,55 @@ class Tab(gtk.Notebook):
       all_filter=gtk.FileFilter()
       all_filter.set_name("All files")
       all_filter.add_pattern("*")
- 
+     
       dialog.add_filter(txt_filter)
       dialog.add_filter(all_filter)
-        
-      dialog.show()
-      response = dialog.run()
-     
-      if response == gtk.RESPONSE_OK:
-          file_name = dialog.get_filename()
-          file_name = utils.cut_file_name(file_name)
 
+      response = dialog.run()
+      file_name = dialog.get_filename()
+
+      if file_name not in self.already_save:
+         self.already_save.append(file_name)
+      
+      if response == gtk.RESPONSE_OK:
           label = gtk.Label(file_name)
 
           file_save = open(file_name,"w")
           
           textbuffer = self.editor.get_buffer()
-          
+            
           file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                               textbuffer.get_end_iter()))
         
+          file_name = utils.cut_file_name(file_name)
           self.set_label(gtk.Label(file_name).get_text())
         
-          file_save.close()          
-          dialog.destroy() 
-       
+          file_save.close()                 
           self.show_all()
-        
-          return file_name     
- 
+         
       elif response == gtk.RESPONSE_CANCEL:
           dialog.destroy()
-        
-      already_save = True             
-     
+
       dialog.destroy()
+      self.saving = True
+      return file_name
   #
   #save file
   #
   def save_file(self):
-      if already_save == False:
-          self.save_as_file()
-      else:
-          pass
- 
+      if self.saving == False:
+         self.save_as_file()
+
+      elif self.already_save[0] != True:   
+         page = self.get_current_page()      
+         name_of_file = self.already_save[page]
+         print name_of_file
+         textbuffer = self.editor.get_buffer()
+         file = open(name_of_file,"w")
+         file.write(textbuffer.get_text(textbuffer.get_start_iter(),
+                                        textbuffer.get_end_iter()))
+         file.close() 
+                 
   #
   #close tab
   #

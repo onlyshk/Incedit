@@ -239,6 +239,8 @@ class Incedit:
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
             self.main_window.show_all()
 
+            tab.Tab.already_save = True
+
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
  
@@ -248,7 +250,7 @@ class Incedit:
     #Save file
     #
     def save_file(self,widget):
-        Tab.save_as_file(self.tab_panel)
+        tab.Tab.save_file(self.tab_panel)
  
     #
     #Save as file
