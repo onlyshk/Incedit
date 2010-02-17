@@ -33,6 +33,7 @@ class Tab(gtk.Notebook):
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
+    self.set_scrollable(True)
   
   #
   #main editor provide
