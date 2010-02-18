@@ -4,7 +4,7 @@ Maximized=1
 Geometry=1280x950+0+51
 
 [File Loader]
-Files=file:///home/shk/incedit/src/tab.py#151%%%file:///home/shk/incedit/src/incedit.py#242
+Files=file:///home/shk/incedit/src/incedit.py#278%%%file:///home/shk/incedit/src/tab.py#172
 
 [Execution]
 Program arguments=

@@ -69,18 +69,18 @@ class Tab(gtk.Notebook):
       self.set_tab_label(self.scrolled_window,label)
         
       self.saving = False
-      #self.already_save.insert(self.get_current_page(),self.get_n_pages() - 1) 
-      self.already_save.append(self.get_n_pages() - 1)
+      
+      self.already_save.insert(self.get_current_page(),self.get_n_pages() - 1) 
+
       label.show_all()
       self.show_all()
+
       return self.editor
     
-  def get_editor(self):
-      pass
   #
   #create tab button close and label
   #
-  def create_tab_label(self, title, tab_child):
+  def create_tab_label(self, title, child):
       box = gtk.HBox()
       label = gtk.Label(title)
       closebtn = gtk.Button()
@@ -89,15 +89,15 @@ class Tab(gtk.Notebook):
       image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
    
       closebtn.set_image(image)
-      closebtn.set_relief(gtk.RELIEF_NONE)
- 
+      closebtn.set_relief(gtk.RELIEF_NONE)             
+      
       box.pack_start(label, True, True)
       box.pack_end(closebtn, False, False)
  
       self.show_all()
+      
+      closebtn.connect("clicked", self.close_tab, child)
 
-      closebtn.connect("clicked",self.close_tab)
-    
       return box
 
   #
@@ -168,13 +168,8 @@ class Tab(gtk.Notebook):
   #
   #close tab
   #
-  def close_tab(self,child):
-
-     if self.get_n_pages() != self.get_current_page():
-         self.set_current_page(self.get_n_pages())
- 
-     self.remove_page(self.get_current_page())
-    
+  def close_tab(self,button,child):
+      pass
   #
   #close all tab
   #  
