@@ -1,108 +1,68 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#
-# tab.py - tabing functional
-# Copyright (C) Kuleshov Alexander 2010 <kuleshovmail@gmail.com>
-# 
-# main.py is free software: you can redistribute it and/or modify it
-# under the terms of the GNU Lesser General Public License as published
-# by the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# main.py is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU Lesser General Public License for more details.
-# 
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#!/usr/bin/env python
+ 
  
 import gtk 
 import utils
 from incedit import Incedit
 from editor import Editor
-import re
-import string
 
-#
-# Tab class providing
-#
 class Tab(gtk.Notebook):
-
+ 
   already_save = []
   saving = False
 
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
+    self.set_property('show-tabs', True) 
     self.set_scrollable(True)
-  
-  #
-  #main editor provide
-  #
-  def editor_access(self):
-      self.editor = Editor()
-      return self.editor
-
+ 
   #
   #tab-label provide
   #
   def set_label(self,label):
-      label = self.create_tab_label(label,self.editor_access)
+      label = self.create_tab_label(label,self.editor)
       self.set_tab_label_packing(self.scrolled_window,False,False,2)
       self.set_tab_label(self.scrolled_window,label)
       label.show_all()
-  #
-  #add new tab function
-  #
+
   def new_tab(self,label):
+      self.editor = gtk.TextView()
       self.scrolled_window = gtk.ScrolledWindow()
       
       self.add(self.scrolled_window)
-      self.scrolled_window.add_with_viewport(self.editor_access())
- 
+
+      self.scrolled_window.add_with_viewport(self.editor)
+        
       self.scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
-      label = self.create_tab_label(label,self.editor_access)
+      label = self.create_tab_label(label,self.scrolled_window)
 
       self.set_tab_label_packing(self.scrolled_window,False,False,2)
       self.set_tab_label(self.scrolled_window,label)
-        
       self.saving = False
-      
       self.already_save.insert(self.get_current_page(),self.get_n_pages() - 1) 
-
       label.show_all()
       self.show_all()
 
       return self.editor
-    
-  #
-  #create tab button close and label
-  #
-  def create_tab_label(self, title, child):
-      box = gtk.HBox()
-      label = gtk.Label(title)
-      closebtn = gtk.Button()
-    
-      image = gtk.Image()
-      image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
-   
-      closebtn.set_image(image)
-      closebtn.set_relief(gtk.RELIEF_NONE)             
-      
-      box.pack_start(label, True, True)
-      box.pack_end(closebtn, False, False)
  
-      self.show_all()
-      
-      closebtn.connect("clicked", self.close_tab, child)
-
-      return box
-
-  #
-  #save as text from current text view
-  #
+  def create_tab_label(self, title, tab_child):
+    box = gtk.HBox()
+    icon = gtk.Image()
+    icon.set_from_stock(title, gtk.ICON_SIZE_MENU)
+    label = gtk.Label(title)
+    closebtn = gtk.Button()
+    image = gtk.Image()
+    image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
+    closebtn.connect("clicked", self.close_tab, tab_child)
+    closebtn.set_image(image)
+    closebtn.set_relief(gtk.RELIEF_NONE)
+    box.pack_start(icon, False, False)
+    box.pack_start(label, True, True)
+    box.pack_end(closebtn, False, False)
+    return box
+ 
   def save_as_file(self):
       
       dialog = gtk.FileChooserDialog("Save..",
@@ -165,15 +125,11 @@ class Tab(gtk.Notebook):
                                         textbuffer.get_end_iter()))
          file.close() 
          print Incedit.file_opened
-  #
-  #close tab
-  #
-  def close_tab(self,button,child):
-      pass
-  #
-  #close all tab
-  #  
-  def close_all_tab(self,child):
-     
-     for child in self.get_children():
-         self.remove(child)
+
+  def close_tab(self, widget, child):
+    pagenum = self.page_num(child)
+    
+    self.remove_page(pagenum)
+    #child.destroy()
+    del self.already_save[pagenum]
+    print pagenum 
