@@ -32,9 +32,9 @@ import utils
 #
 class Incedit:
 
+    file_opened = False
+   
     def __init__(self):
-        self.documents = []
-        self.doc_num   = 1
  
         self.main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         self.main_window.set_size_request(800,600)
@@ -146,6 +146,8 @@ class Incedit:
         self.file_open.connect("activate",self.open_file)
         self.file_save.connect("activate",self.save_file)
         self.file_save_as.connect("activate",self.save_as_file)
+        self.file_close.connect("activate",self.close_file)
+        self.file_close_all.connect("activate",self.close_all)
         self.file_exit.connect("activate",self.exit)
 
         self.vbox.pack_start(self.main_menu, False, False, 0)
@@ -239,12 +241,12 @@ class Incedit:
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
             self.main_window.show_all()
 
-            tab.Tab.already_save = True
+            self.file_opened = True
+
+            dialog.destroy()
 
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
- 
-        dialog.destroy()
  
     #
     #Save file
@@ -264,6 +266,20 @@ class Incedit:
     #
     def exit(self,widget):
         gtk.main_quit()
+
+    #
+    #close file
+    #
+    def close_file(self,child):
+         tab.Tab.close_tab(self.tab_panel,child)
+         self.main_window.show_all()
+
+    #
+    #close all file
+    #
+    def close_all(self,child):    
+        tab.Tab.close_all_tab(self.tab_panel,child)
+        self.main_window.show_all()
 
     #
     #MAIN

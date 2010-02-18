@@ -64,14 +64,15 @@ class Tab(gtk.Notebook):
       self.scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
       label = self.create_tab_label(label,self.editor_access)
-           
+
       self.set_tab_label_packing(self.scrolled_window,False,False,2)
       self.set_tab_label(self.scrolled_window,label)
-      
-      label.show_all()
+        
       self.saving = False
-      self.already_save.insert(0,self.get_n_pages() - 1) 
-      print self.get_n_pages()
+      #self.already_save.insert(self.get_current_page(),self.get_n_pages() - 1) 
+      self.already_save.append(self.get_n_pages() - 1)
+      label.show_all()
+      self.show_all()
       return self.editor
     
   def get_editor(self):
@@ -92,7 +93,9 @@ class Tab(gtk.Notebook):
  
       box.pack_start(label, True, True)
       box.pack_end(closebtn, False, False)
-      
+ 
+      self.show_all()
+
       closebtn.connect("clicked",self.close_tab)
     
       return box
@@ -153,23 +156,29 @@ class Tab(gtk.Notebook):
       if self.saving == False:
          self.save_as_file()
 
-      #elif self.already_save[0] != True:   
       else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
-         print name_of_file
          textbuffer = self.editor.get_buffer()
          file = open(name_of_file,"w")
          file.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                         textbuffer.get_end_iter()))
          file.close() 
-                 
+         print Incedit.file_opened
   #
   #close tab
   #
   def close_tab(self,child):
-  
-      if self.get_n_pages() != self.get_current_page():
-          self.set_current_page(self.get_n_pages())
+
+     if self.get_n_pages() != self.get_current_page():
+         self.set_current_page(self.get_n_pages())
  
-      self.remove_page(self.get_current_page())
+     self.remove_page(self.get_current_page())
+    
+  #
+  #close all tab
+  #  
+  def close_all_tab(self,child):
+     
+     for child in self.get_children():
+         self.remove(child)
