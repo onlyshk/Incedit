@@ -20,13 +20,12 @@
 import gtk 
 import utils
 from incedit import Incedit
-from editor import Editor
 
 class Tab(gtk.Notebook):
  
   already_save = []
   saving = False
-  editor = Editor()
+  editor = gtk.TextView()
 
   def __init__(self):
     gtk.Notebook.__init__(self)
@@ -89,7 +88,10 @@ class Tab(gtk.Notebook):
       closebtn.connect("clicked", self.close_tab, tab_child)
 
       return box
-    
+  
+  #
+  #save as file
+  #
   def save_as_file(self):
       
       dialog = gtk.FileChooserDialog("Save..",

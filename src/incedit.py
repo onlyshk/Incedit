@@ -22,8 +22,6 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import sys
-
-from editor import Editor
 import tab
 import utils
  
@@ -241,12 +239,14 @@ class Incedit:
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
             self.main_window.show_all()
 
-            self.file_opened = True
+            self.file_opened  = True
 
             dialog.destroy()
 
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
+
+        return self.file_opened 
  
     #
     #Save file
