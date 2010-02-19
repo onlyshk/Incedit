@@ -26,9 +26,6 @@ class Tab(gtk.Notebook):
       self.set_tab_label(self.scrolled_window,label)
       label.show_all()
 
-  # 
-  #add new tab
-  #
   def new_tab(self,label):
       self.editor = gtk.TextView()
       self.scrolled_window = gtk.ScrolledWindow()
@@ -49,10 +46,7 @@ class Tab(gtk.Notebook):
       self.show_all()
 
       return self.editor
-  #
-  #create tab
-  #
-  
+ 
   def create_tab_label(self, title, tab_child):
     box = gtk.HBox()
     icon = gtk.Image()
