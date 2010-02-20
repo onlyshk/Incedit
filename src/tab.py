@@ -38,6 +38,7 @@ class Tab(gtk.Notebook):
   def set_label(self,label):
       label = self.create_tab_label(label,self.editor)
       self.set_tab_label(self.get_nth_page(self.get_current_page()),label)
+
       label.show_all()
       self.show_all()
 
@@ -63,7 +64,7 @@ class Tab(gtk.Notebook):
       label.show_all()
 
       self.show_all()
-      print self.already_save
+
       return self.editor
 
   #
@@ -137,38 +138,34 @@ class Tab(gtk.Notebook):
   #
   #save file
   #
-  def save_file(self):
+  def save_file(self): 
       hbox = self.get_tab_label(self.get_nth_page(self.get_current_page()))
       label_of_tab = hbox.get_children()
       text_of_tab = label_of_tab[0].get_text()
+
       if  text_of_tab == "New File":
          self.save_as_file() 
-         print text_of_tab
       else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
          textbuffer = self.editor.get_buffer()
-         print name_of_file
+
          file = open(name_of_file,"w")
          file.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                         textbuffer.get_end_iter()))
          file.close() 
+
          hbox = None
-           
+         
   #
   #close file
   #
   def close_tab(self, widget, child):
     pagenum = self.page_num(child) 
+
     del self.already_save[pagenum]
+
     self.remove_page(pagenum)
-    print pagenum
-    print self.already_save 
+
    
-  #
-  #close all file
-  #
-  def close_all_tab(self,child):
-     for child in self.get_children():
-         self.remove(child)
 

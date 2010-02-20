@@ -29,7 +29,7 @@ import utils
 #
 class Incedit:
 
-    file_opened = False
+    opened_files = []
    
     def __init__(self):
  
@@ -70,7 +70,6 @@ class Incedit:
         self.save_menu           = gtk.Menu()   
         self.save_as_menu        = gtk.Menu()
         self.close_file_menu     = gtk.Menu()
-        self.close_all_file_menu = gtk.Menu()
         self.exit_menu           = gtk.Menu()
  
         #add sub-menu menu items
@@ -89,9 +88,6 @@ class Incedit:
         self.close_file_item = gtk.MenuItem("Close file")
         self.close_file_item.set_submenu(self.close_file_menu)
         
-        self.close_all_file_item = gtk.MenuItem("Close All file")
-        self.close_all_file_item.set_submenu(self.close_all_file_menu)
-
         self.exit_file_item = gtk.MenuItem("Exit")
         self.exit_file_item.set_submenu(self.exit_menu)
  
@@ -115,11 +111,7 @@ class Incedit:
         self.file_close = gtk.ImageMenuItem(gtk.STOCK_CLOSE,agr)
         key, mod = gtk.accelerator_parse("<Control>w")
         self.file_close.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
- 
-        self.file_close_all = gtk.ImageMenuItem(gtk.STOCK_CLOSE,agr)
-        key, mod = gtk.accelerator_parse("<Shift><Control>s")
-        self.file_close_all.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
- 
+  
         self.file_exit = gtk.ImageMenuItem(gtk.STOCK_QUIT,agr)
         key, mod = gtk.accelerator_parse("<Control>q")
         self.file_exit.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
@@ -132,7 +124,6 @@ class Incedit:
         self.file_menu.append(self.file_save_as)
         self.file_menu.append(self.separator2)
         self.file_menu.append(self.file_close)
-        self.file_menu.append(self.file_close_all)
         self.file_menu.append(self.separator3)
         self.file_menu.append(self.file_exit) 
 
@@ -144,7 +135,6 @@ class Incedit:
         self.file_save.connect("activate",self.save_file)
         self.file_save_as.connect("activate",self.save_as_file)
         self.file_close.connect("activate",self.close_file)
-        self.file_close_all.connect("activate",self.close_all)
         self.file_exit.connect("activate",self.exit)
 
         self.vbox.pack_start(self.main_menu, False, False, 0)
@@ -206,7 +196,7 @@ class Incedit:
     #
     #Open file
     #
-    def open_file(self,widget):
+    def open_file(self,param = 1):
         pages_num = self.tab_panel.get_n_pages()
  
         dialog = gtk.FileChooserDialog("Open file..",None,gtk.FILE_CHOOSER_ACTION_OPEN,
@@ -223,10 +213,11 @@ class Incedit:
  
         dialog.add_filter(txt_filter)
         dialog.add_filter(all_filter)
- 
+        
         response = dialog.run()
-         
-        if response == gtk.RESPONSE_OK:
+
+        if response == gtk.RESPONSE_OK: 
+            file_name = dialog.get_filename()
             self.tab_panel.set_current_page(pages_num)    
             self.tab_panel.new_tab(str(utils.cut_file_name(dialog.get_filename()))).set_buffer(self.textbuffer)
             self.textbuffer.set_text(open(dialog.get_filename()).read())
@@ -238,15 +229,16 @@ class Incedit:
             self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
             self.main_window.show_all()
 
-            self.file_opened  = True
+            self.opened_files.append(self.tab_panel.get_current_page())
 
-            dialog.destroy()
+            tab.Tab.already_save.insert(self.tab_panel.get_current_page(),file_name)             
 
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
-
-        return self.file_opened 
- 
+        
+        dialog.destroy()
+        return file_name    
+  
     #
     #Save file
     #
@@ -272,13 +264,6 @@ class Incedit:
     def close_file(self,child):
          tab.Tab.close_tab(self.tab_panel,child)
          self.main_window.show_all()
-
-    #
-    #close all file
-    #
-    def close_all(self,child):    
-        tab.Tab.close_all_tab(self.tab_panel,child)
-        self.main_window.show_all()
 
     #
     #MAIN

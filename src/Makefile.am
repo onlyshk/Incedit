@@ -2,9 +2,7 @@
 ## Created by Anjuta
 
 ## The main script
-bin_SCRIPTS = incedit.py \
-	tab.py\
-	tab.py
+bin_SCRIPTS = incedit.py
 
 ## Directory where .class files will be installed
 inceditdir = $(pythondir)/incedit
@@ -12,5 +10,4 @@ inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
 	incedit.py\
 	tab.py \
-	editor.py \
 	utils.py

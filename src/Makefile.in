@@ -134,15 +134,12 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-bin_SCRIPTS = incedit.py \
-	tab.py\
-	tab.py
-
+bin_SCRIPTS = incedit.py
 inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
 	incedit.py\
 	tab.py \
-	editor.py
+	utils.py
 
 all: all-am
 

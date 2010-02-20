@@ -73,15 +73,15 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAINT = #
+MAINT = 
 MAKEINFO = ${SHELL} /home/shk/incedit/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 PACKAGE = incedit
 PACKAGE_BUGREPORT = 
 PACKAGE_NAME = incedit
-PACKAGE_STRING = incedit 0.1
+PACKAGE_STRING = incedit 0.1.0
 PACKAGE_TARNAME = incedit
-PACKAGE_VERSION = 0.1
+PACKAGE_VERSION = 0.1.0
 PATH_SEPARATOR = :
 PYTHON = /usr/bin/python
 PYTHON_EXEC_PREFIX = ${exec_prefix}
@@ -91,7 +91,7 @@ PYTHON_VERSION = 2.5
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1
+VERSION = 0.1.0
 abs_builddir = /home/shk/incedit/src
 abs_srcdir = /home/shk/incedit/src
 abs_top_builddir = /home/shk/incedit
@@ -134,20 +134,17 @@ sysconfdir = ${prefix}/etc
 target_alias = 
 top_builddir = ..
 top_srcdir = ..
-bin_SCRIPTS = incedit.py \
-	tab.py\
-	tab.py
-
+bin_SCRIPTS = incedit.py
 inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
 	incedit.py\
 	tab.py \
-	editor.py
+	utils.py
 
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -172,9 +169,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-$(top_srcdir)/configure: # $(am__configure_deps)
+$(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
+$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)
