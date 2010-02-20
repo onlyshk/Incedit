@@ -10,7 +10,7 @@
 # (at your option) any later version.
 # 
 # main.py is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
+# WITHOUT ANY WARRANTY; without esavingven the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the GNU Lesser General Public License for more details.
 # 
@@ -24,7 +24,6 @@ from incedit import Incedit
 class Tab(gtk.Notebook):
  
   already_save = []
-  saving = False
   editor = gtk.TextView()
 
   def __init__(self):
@@ -60,8 +59,7 @@ class Tab(gtk.Notebook):
       self.set_tab_label_packing(self.scrolled_window,False,False,2)
       self.set_tab_label(self.scrolled_window,label)
 
-      self.saving = False
-      self.already_save.insert(self.get_current_page(),self.get_n_pages() - 1) 
+      self.already_save.append(self.get_current_page()) 
       label.show_all()
 
       self.show_all()
@@ -134,33 +132,38 @@ class Tab(gtk.Notebook):
           dialog.destroy()
 
       dialog.destroy()
-      self.saving = True
 
       return file_name
   #
   #save file
   #
   def save_file(self):
-      if self.saving == False:
-         self.save_as_file()
+      hbox = self.get_tab_label(self.get_nth_page(self.get_current_page()))
+      label_of_tab = hbox.get_children()
+      text_of_tab = label_of_tab[0].get_text()
+      if  text_of_tab == "New File":
+         self.save_as_file() 
+         print text_of_tab
       else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
          textbuffer = self.editor.get_buffer()
+         print name_of_file
          file = open(name_of_file,"w")
          file.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                         textbuffer.get_end_iter()))
          file.close() 
-         print Incedit.file_opened
+         hbox = None
+           
   #
   #close file
   #
   def close_tab(self, widget, child):
     pagenum = self.page_num(child) 
-    del self.already_save[pagenum - 1]
+    del self.already_save[pagenum]
     self.remove_page(pagenum)
-    self.saving = False
     print pagenum
+    print self.already_save 
    
   #
   #close all file

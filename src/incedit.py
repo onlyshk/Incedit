@@ -21,7 +21,6 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
-import sys
 import tab
 import utils
  
@@ -48,7 +47,7 @@ class Incedit:
         
         self.main_window.add(self.vbox)
          
-        self.tab_panel.new_tab("New file")
+        self.tab_panel.new_tab("New File")
  
         self.main_window.show_all()
     #
