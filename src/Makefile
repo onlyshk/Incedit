@@ -137,9 +137,7 @@ top_srcdir = ..
 bin_SCRIPTS = incedit.py
 inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
-	incedit.py\
-	tab.py \
-	utils.py
+	incedit.py
 
 all: all-am
 

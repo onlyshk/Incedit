@@ -9,5 +9,5 @@ inceditdir = $(pythondir)/incedit
 
 incedit_PYTHON = \
 	incedit.py\
-	tab.py \
-	utils.py
+	utils.py \
+	tab.py
