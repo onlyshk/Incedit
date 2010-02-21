@@ -161,11 +161,25 @@ class Tab(gtk.Notebook):
   #close file
   #
   def close_tab(self, widget, child):
-    pagenum = self.page_num(child) 
-
-    del self.already_save[pagenum]
-
-    self.remove_page(pagenum)
+       
+      dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
+                                 gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save file")
+      dialog.set_title("Close file!")
+      response = dialog.run()
+        
+      if response == gtk.RESPONSE_YES:
+          dialog.destroy()
+          self.save_as_file()
+  
+          pagenum = self.page_num(child) 
+          del self.already_save[pagenum]
+          self.remove_page(pagenum)
+      else: 
+          dialog.destroy()
+          
+          pagenum = self.page_num(child) 
+          del self.already_save[pagenum]
+          self.remove_page(pagenum)
 
    
 

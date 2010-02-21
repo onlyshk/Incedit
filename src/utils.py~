@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# editor.py - provide editor
+# utils.py - simple utils for app
 # Copyright (C) Kuleshov Alexander 2010 <kuleshovmail@gmail.com>
 # 
 # main.py is free software: you can redistribute it and/or modify it
@@ -17,12 +17,17 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import gtk
-import pygtk
+#
+# cut file only name
+#
+import incedit 
 
-class Editor(gtk.TextView):
-  
-  def __init__(self):
-    gtk.TextView.__init__(self)
+def cut_file_name(path):
+
+    list_of_split = path.split("/")
+
+    rev_list_of_split = list_of_split[::-1]
+ 
+    file_name = rev_list_of_split[0]
     
-    
+    return file_name
