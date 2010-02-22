@@ -1,3 +1,6 @@
+## Process this file with automake to produce Makefile.in
+## Created by Anjuta
+
 ## The main script
 bin_SCRIPTS = incedit.py
 
@@ -7,6 +10,4 @@ inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
 	incedit.py\
 	utils.py \
-	tab.py \
-	menu.py \
-	toolbar.py
+	tab.py

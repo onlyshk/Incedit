@@ -23,33 +23,36 @@ pygtk.require('2.0')
 import gtk
 import tab
 import utils
- 
+import toolbar
+
 #
 #Main class
 #
 class Incedit:
  
+    vbox = gtk.VBox(homogeneous = False, spacing = 0)
+    main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+   
     opened_files = []
    
     def __init__(self):
- 
-        self.main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+       
         self.main_window.set_size_request(800,600)
         self.main_window.set_position(gtk.WIN_POS_CENTER)	
         self.main_window.set_title("Incedit")
- 
-        self.vbox = gtk.VBox(homogeneous = False, spacing = 0)
        
         self.init_menu()
         self.initializeEditor()
         self.init_tab_buttons() 
-        self.init_toolbar()
+        self.toolbar.init_toolbar()
         
         self.main_window.add(self.vbox)
          
         self.tab_panel.new_tab("New File")
  
         self.main_window.show_all()
+       
+        self.main_window.connect("destroy", self.on_window1_delete_event)
     #
     # application menu
     #    
@@ -147,7 +150,7 @@ class Incedit:
  
         self.statusbar = gtk.Statusbar()
  
-        self.toolbar   = gtk.Toolbar()   
+        self.toolbar   = toolbar.ToolBar()   
  
         self.toolbutton = gtk.Button() 
  
@@ -156,6 +159,10 @@ class Incedit:
         self.vbox.pack_start(self.toolbar,False,False,0)
         self.vbox.add(self.tab_panel)
         self.vbox.pack_start(self.statusbar,False,False,0)
+
+        toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
+        toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
+        toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
     
     #
     #tab close buttons
@@ -167,22 +174,6 @@ class Incedit:
         self.toolbutton.set_relief(gtk.RELIEF_NONE)
         self.toolbutton.set_size_request(image_w+2, image_h+2)
         self.toolbutton.add(close_image)
-    #
-    #ToolBar
-    #
-    def init_toolbar(self):
-        self.create_bar = gtk.ToolButton(gtk.STOCK_NEW)
-        self.open_bar   = gtk.ToolButton(gtk.STOCK_OPEN)
-        self.save_bar   = gtk.ToolButton(gtk.STOCK_SAVE)        
- 
-        self.toolbar.insert(self.create_bar,0)
-        self.toolbar.insert(self.open_bar,1)
-        self.toolbar.insert(self.save_bar,2)
- 
-        #toolbar signals
-        self.create_bar.connect("clicked",self.new_file)
-        self.open_bar.connect("clicked",self.open_file)
-        self.save_bar.connect("clicked",self.save_as_file)
     #
     # add new file
     #
@@ -196,7 +187,7 @@ class Incedit:
     #
     #Open file
     #
-    def open_file(self,param = 1):
+    def open_file(self,widget):
         pages_num = self.tab_panel.get_n_pages()
  
         dialog = gtk.FileChooserDialog("Open file..",None,gtk.FILE_CHOOSER_ACTION_OPEN,
@@ -256,7 +247,15 @@ class Incedit:
     #quit application
     #
     def exit(self,widget):
-        gtk.main_quit()
+        dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
+                                   gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save current file and qiut?")
+        dialog.set_title("Close file!")
+        response = dialog.run()
+        
+        if response == gtk.RESPONSE_YES:
+           tab.Tab.save_as_file(self.tab_panel)
+        else:
+           pass
  
     #
     #close file
@@ -266,6 +265,23 @@ class Incedit:
          self.main_window.show_all()
  
     #
+    #destroy app
+    #
+    #def on_destroy(self,app):
+    #     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
+    #                             gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save current file and qiut?")
+    #     dialog.set_title("Close file!")
+    #     response = dialog.run()
+    #    
+    #     if response == gtk.RESPONSE_YES:
+    #         tab.Tab.save_as_file(self.tab_panel)
+    #     else:
+    #         pass
+    
+    def on_window1_delete_event(self,winget):
+        #self.exit(self)
+        pass
+    # 
     #MAIN
     #
     def main(self):
