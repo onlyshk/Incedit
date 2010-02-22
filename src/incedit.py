@@ -51,8 +51,6 @@ class Incedit:
         self.tab_panel.new_tab("New File")
  
         self.main_window.show_all()
-       
-        self.main_window.connect("destroy", self.on_window1_delete_event)
     #
     # application menu
     #    
@@ -63,11 +61,14 @@ class Incedit:
         self.separator1 = gtk.SeparatorMenuItem()
         self.separator2 = gtk.SeparatorMenuItem()
         self.separator3 = gtk.SeparatorMenuItem()
+        self.separator4 = gtk.SeparatorMenuItem()
+        self.separator5 = gtk.SeparatorMenuItem()
+        self.separator6 = gtk.SeparatorMenuItem()
  
         #ain menu
         self.main_menu = gtk.MenuBar()
         
-        #menu item's
+        #file menu items
         self.file_menu           = gtk.Menu()
         self.open_menu           = gtk.Menu()     
         self.save_menu           = gtk.Menu()   
@@ -75,24 +76,46 @@ class Incedit:
         self.close_file_menu     = gtk.Menu()
         self.exit_menu           = gtk.Menu()
  
+        #edit menu items
+        self.edit_menu           = gtk.Menu()
+        self.undo_menu           = gtk.Menu()
+        self.redo_menu           = gtk.Menu()
+        self.cut_menu            = gtk.Menu()
+        self.copy_menu           = gtk.Menu()
+        self.paste_menu          = gtk.Menu()
+        self.delete_menu         = gtk.Menu()
+        self.select_all_menu     = gtk.Menu()
+
         #add sub-menu menu items
         self.file_item = gtk.MenuItem("File")
         self.file_item.set_submenu(self.file_menu)
-        
         self.open_item = gtk.MenuItem("Open")
         self.open_item.set_submenu(self.open_menu)
-    
         self.save_item = gtk.MenuItem("Save")
         self.save_item.set_submenu(self.save_menu)          
-        
         self.save_as_item = gtk.MenuItem("Save as")
         self.save_as_item.set_submenu(self.save_as_menu)
-        
         self.close_file_item = gtk.MenuItem("Close file")
         self.close_file_item.set_submenu(self.close_file_menu)
-        
         self.exit_file_item = gtk.MenuItem("Exit")
         self.exit_file_item.set_submenu(self.exit_menu)
+
+        self.edit_item = gtk.MenuItem("Edit")
+        self.edit_item.set_submenu(self.edit_menu)
+        self.undo_item = gtk.MenuItem("Undo")
+        self.undo_item.set_submenu(self.undo_menu)
+        self.redo_item = gtk.MenuItem("Redo")
+        self.redo_item.set_submenu(self.redo_menu)
+        self.cut_item  = gtk.MenuItem("Cut")
+        self.cut_item.set_submenu(self.cut_menu)
+        self.copy_item = gtk.MenuItem("Copy")
+        self.copy_item.set_submenu(self.copy_menu)
+        self.paste_item = gtk.MenuItem("Paste")
+        self.paste_item.set_submenu(self.paste_menu)
+        self.delete_item = gtk.MenuItem("Delete")
+        self.delete_item.set_submenu(self.delete_menu)
+        self.select_all_item = gtk.MenuItem("Select All")
+        self.select_all_item.set_submenu(self.select_all_menu)
  
         #image file menu items
         self.file_new = gtk.ImageMenuItem(gtk.STOCK_NEW, agr)
@@ -119,6 +142,34 @@ class Incedit:
         key, mod = gtk.accelerator_parse("<Control>q")
         self.file_exit.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
+        self.edit_undo = gtk.ImageMenuItem(gtk.STOCK_UNDO, agr)
+        key,mod = gtk.accelerator_parse("<Control>u")
+        self.edit_undo.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_redo = gtk.ImageMenuItem(gtk.STOCK_REDO, agr)
+        key,mod = gtk.accelerator_parse("<Control>r")
+        self.edit_redo.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_paste = gtk.ImageMenuItem(gtk.STOCK_PASTE, agr)
+        key,mod = gtk.accelerator_parse("<Control>v")
+        self.edit_paste.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_copy = gtk.ImageMenuItem(gtk.STOCK_COPY, agr)
+        key,mod = gtk.accelerator_parse("<Control>c")
+        self.edit_copy.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_cut = gtk.ImageMenuItem(gtk.STOCK_CUT, agr)
+        key,mod = gtk.accelerator_parse("<Control>x")
+        self.edit_cut.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_delete = gtk.ImageMenuItem(gtk.STOCK_DELETE, agr)
+        key,mod = gtk.accelerator_parse("<Control>e")
+        self.edit_delete.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.edit_select_all = gtk.ImageMenuItem("Select All",agr)
+        key,mod = gtk.accelerator_parse("<Control>a")
+        self.edit_select_all.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
         # add menu
         self.file_menu.append(self.file_new)
         self.file_menu.append(self.file_open)       
@@ -129,8 +180,20 @@ class Incedit:
         self.file_menu.append(self.file_close)
         self.file_menu.append(self.separator3)
         self.file_menu.append(self.file_exit) 
- 
+
+        self.edit_menu.append(self.edit_undo)
+        self.edit_menu.append(self.edit_redo)
+        self.edit_menu.append(self.separator4)
+        self.edit_menu.append(self.edit_copy)
+        self.edit_menu.append(self.edit_paste)
+        self.edit_menu.append(self.edit_cut) 
+        self.edit_menu.append(self.separator5)
+        self.edit_menu.append(self.edit_delete)
+        self.edit_menu.append(self.separator6)
+        self.edit_menu.append(self.edit_select_all)
+    
         self.main_menu.append(self.file_item)
+        self.main_menu.append(self.edit_item)
          
         #signals
         self.file_new.connect("activate",self.new_file)
@@ -264,23 +327,6 @@ class Incedit:
          tab.Tab.close_tab(self.tab_panel,child)
          self.main_window.show_all()
  
-    #
-    #destroy app
-    #
-    #def on_destroy(self,app):
-    #     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
-    #                             gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save current file and qiut?")
-    #     dialog.set_title("Close file!")
-    #     response = dialog.run()
-    #    
-    #     if response == gtk.RESPONSE_YES:
-    #         tab.Tab.save_as_file(self.tab_panel)
-    #     else:
-    #         pass
-    
-    def on_window1_delete_event(self,winget):
-        #self.exit(self)
-        pass
     # 
     #MAIN
     #
