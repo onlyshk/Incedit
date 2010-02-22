@@ -8,5 +8,5 @@ incedit_PYTHON = \
 	incedit.py\
 	utils.py \
 	tab.py \
-	menu.py \
-	toolbar.py
+	toolbar.py \
+	menu.py

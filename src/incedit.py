@@ -24,6 +24,7 @@ import gtk
 import tab
 import utils
 import toolbar
+import menu
 
 #
 #Main class
