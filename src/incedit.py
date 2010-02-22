@@ -23,7 +23,8 @@ import gtk
 import tab
 import utils
 import toolbar
- 
+import sep
+
 #
 #Main class
 #
@@ -57,15 +58,7 @@ class Incedit:
         agr = gtk.AccelGroup()
         self.main_window.add_accel_group(agr)
  
-        self.separator1 = gtk.SeparatorMenuItem()
-        self.separator2 = gtk.SeparatorMenuItem()
-        self.separator3 = gtk.SeparatorMenuItem()
-        self.separator4 = gtk.SeparatorMenuItem()
-        self.separator5 = gtk.SeparatorMenuItem()
-        self.separator6 = gtk.SeparatorMenuItem()
-        self.separator7 = gtk.SeparatorMenuItem()
- 
-        #ain menu
+        self.sep = sep.SeparatorStruct()
         self.main_menu = gtk.MenuBar()
         
         #file menu items
@@ -180,25 +173,25 @@ class Incedit:
         # add menu
         self.file_menu.append(self.file_new)
         self.file_menu.append(self.file_open)       
-        self.file_menu.append(self.separator1)
+        self.file_menu.append(self.sep.separator1)
         self.file_menu.append(self.file_save)
         self.file_menu.append(self.file_save_as)
-        self.file_menu.append(self.separator2)
+        self.file_menu.append(self.sep.separator2)
         self.file_menu.append(self.file_print)
-        self.file_menu.append(self.separator7)
+        self.file_menu.append(self.sep.separator7)
         self.file_menu.append(self.file_close)
-        self.file_menu.append(self.separator3)
+        self.file_menu.append(self.sep.separator3)
         self.file_menu.append(self.file_exit) 
 
         self.edit_menu.append(self.edit_undo)
         self.edit_menu.append(self.edit_redo)
-        self.edit_menu.append(self.separator4)
+        self.edit_menu.append(self.sep.separator4)
         self.edit_menu.append(self.edit_copy)
         self.edit_menu.append(self.edit_paste)
         self.edit_menu.append(self.edit_cut) 
-        self.edit_menu.append(self.separator5)
+        self.edit_menu.append(self.sep.separator5)
         self.edit_menu.append(self.edit_delete)
-        self.edit_menu.append(self.separator6)
+        self.edit_menu.append(self.sep.separator6)
         self.edit_menu.append(self.edit_select_all)
     
         self.main_menu.append(self.file_item)
