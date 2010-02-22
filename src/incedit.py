@@ -24,8 +24,7 @@ import gtk
 import tab
 import utils
 import toolbar
-import menu
-
+ 
 #
 #Main class
 #
@@ -160,7 +159,7 @@ class Incedit:
         self.vbox.pack_start(self.toolbar,False,False,0)
         self.vbox.add(self.tab_panel)
         self.vbox.pack_start(self.statusbar,False,False,0)
-
+ 
         toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
         toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
@@ -256,7 +255,7 @@ class Incedit:
         if response == gtk.RESPONSE_YES:
            tab.Tab.save_as_file(self.tab_panel)
         else:
-           pass
+           gtk.main_quit()
  
     #
     #close file
