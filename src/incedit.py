@@ -80,6 +80,11 @@ class Incedit:
         self.delete_menu         = gtk.Menu()
         self.select_all_menu     = gtk.Menu()
 
+        #view menu items
+        self.view_menu           = gtk.Menu()
+        self.show_toolbar_menu   = gtk.Menu()
+        self.show_statusbar_menu = gtk.Menu()        
+
         #add sub-menu menu items
         self.file_item = gtk.MenuItem("File")
         self.file_item.set_submenu(self.file_menu)
@@ -112,7 +117,19 @@ class Incedit:
         self.delete_item.set_submenu(self.delete_menu)
         self.select_all_item = gtk.MenuItem("Select All")
         self.select_all_item.set_submenu(self.select_all_menu)
- 
+
+        self.view_item = gtk.MenuItem("View")
+        self.view_item.set_submenu(self.view_menu)
+        self.show_toolbar_item = gtk.MenuItem("Show toolbar")
+        self.show_toolbar_item.set_submenu(self.show_toolbar_menu)
+        self.show_statusbar_item = gtk.MenuItem("Show statusbar")
+        self.show_statusbar_item.set_submenu(self.show_statusbar_menu)
+
+        self.statusbar_check_menu = gtk.CheckMenuItem("Show StatusBar")
+        self.statusbar_check_menu.set_active(True)
+        self.toolbar_check_menu = gtk.CheckMenuItem("Show ToolBar")
+        self.toolbar_check_menu.set_active(True)
+
         #image file menu items
         self.file_new = gtk.ImageMenuItem(gtk.STOCK_NEW, agr)
         key,mod = gtk.accelerator_parse("<Control>n")
@@ -194,8 +211,12 @@ class Incedit:
         self.edit_menu.append(self.sep.separator6)
         self.edit_menu.append(self.edit_select_all)
     
+        self.view_menu.append(self.statusbar_check_menu)
+        self.view_menu.append(self.toolbar_check_menu)
+
         self.main_menu.append(self.file_item)
         self.main_menu.append(self.edit_item)
+        self.main_menu.append(self.view_item)
 
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
@@ -203,6 +224,9 @@ class Incedit:
         self.file_save_as.connect("activate",self.save_as_file)
         self.file_close.connect("activate",self.close_file)
         self.file_exit.connect("activate",self.exit)
+
+        self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
+        self.toolbar_check_menu.connect("activate", self.toolbar_show) 
  
         self.vbox.pack_start(self.main_menu, False, False, 0)
  
@@ -323,6 +347,24 @@ class Incedit:
         else:
            gtk.main_quit()
  
+    #
+    #toolbar show/hide
+    #
+    def toolbar_show(self,widget):
+         if widget.active: 
+             self.toolbar.show()
+         else:
+             self.toolbar.hide()
+    
+    # 
+    #statusbar show/hide
+    #
+    def statusbar_show(self,widget):
+         if widget.active: 
+             self.statusbar.show()
+         else: 
+             self.statusbar.hide()
+        
     #
     #close file
     #
