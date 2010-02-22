@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
- 
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -64,6 +63,7 @@ class Incedit:
         self.separator4 = gtk.SeparatorMenuItem()
         self.separator5 = gtk.SeparatorMenuItem()
         self.separator6 = gtk.SeparatorMenuItem()
+        self.separator7 = gtk.SeparatorMenuItem()
  
         #ain menu
         self.main_menu = gtk.MenuBar()
@@ -73,6 +73,7 @@ class Incedit:
         self.open_menu           = gtk.Menu()     
         self.save_menu           = gtk.Menu()   
         self.save_as_menu        = gtk.Menu()
+        self.print_menu          = gtk.Menu()
         self.close_file_menu     = gtk.Menu()
         self.exit_menu           = gtk.Menu()
  
@@ -95,6 +96,8 @@ class Incedit:
         self.save_item.set_submenu(self.save_menu)          
         self.save_as_item = gtk.MenuItem("Save as")
         self.save_as_item.set_submenu(self.save_as_menu)
+        self.print_item = gtk.MenuItem("Print")
+        self.print_item.set_submenu(self.print_menu)
         self.close_file_item = gtk.MenuItem("Close file")
         self.close_file_item.set_submenu(self.close_file_menu)
         self.exit_file_item = gtk.MenuItem("Exit")
@@ -133,7 +136,11 @@ class Incedit:
         self.file_save_as = gtk.ImageMenuItem(gtk.STOCK_SAVE_AS,agr)
         key, mod = gtk.accelerator_parse("<Shift><Control>s")
         self.file_save_as.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
- 
+
+        self.file_print = gtk.ImageMenuItem(gtk.STOCK_PRINT,agr)
+        key, mod = gtk.accelerator_parse("<Control>p")
+        self.file_print.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+  
         self.file_close = gtk.ImageMenuItem(gtk.STOCK_CLOSE,agr)
         key, mod = gtk.accelerator_parse("<Control>w")
         self.file_close.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
@@ -177,6 +184,8 @@ class Incedit:
         self.file_menu.append(self.file_save)
         self.file_menu.append(self.file_save_as)
         self.file_menu.append(self.separator2)
+        self.file_menu.append(self.file_print)
+        self.file_menu.append(self.separator7)
         self.file_menu.append(self.file_close)
         self.file_menu.append(self.separator3)
         self.file_menu.append(self.file_exit) 
@@ -194,8 +203,7 @@ class Incedit:
     
         self.main_menu.append(self.file_item)
         self.main_menu.append(self.edit_item)
-         
-        #signals
+
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
         self.file_save.connect("activate",self.save_file)
@@ -237,6 +245,7 @@ class Incedit:
         self.toolbutton.set_relief(gtk.RELIEF_NONE)
         self.toolbutton.set_size_request(image_w+2, image_h+2)
         self.toolbutton.add(close_image)
+
     #
     # add new file
     #
@@ -247,6 +256,7 @@ class Incedit:
         self.main_window.show_all() 
         
         self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
+
     #
     #Open file
     #
