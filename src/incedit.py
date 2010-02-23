@@ -227,6 +227,9 @@ class Incedit:
 
         self.edit_undo.connect("activate", self.on_undo)
         self.edit_redo.connect("activate", self.on_redo)
+        self.edit_copy.connect("activate", self.copy)
+        self.edit_cut.connect("activate", self.cut)
+        self.edit_paste.connect("activate", self.paste)
 
         self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
         self.toolbar_check_menu.connect("activate", self.toolbar_show) 
@@ -367,7 +370,6 @@ class Incedit:
              self.statusbar.show()
          else: 
              self.statusbar.hide()
-        
     #
     #close file
     #
@@ -378,13 +380,31 @@ class Incedit:
     #undo provide
     #
     def on_undo(self,widget):
-         pass
+         tab.Tab.undo(self.tab_panel,widget)
 
     #
     #redo provide
     #
     def on_redo(self,widget):
          pass   
+
+    #
+    #copy text provide
+    #
+    def copy(self,widget):
+        tab.Tab.copy_buffer(self.tab_panel)    
+
+    #
+    #cut text provide
+    #
+    def cut(self,widget):
+        tab.Tab.cut_buffer(self.tab_panel)   
+
+    #
+    #paste text provide
+    #
+    def paste(self,widget):
+        tab.Tab.paste_buffer(self.tab_panel)   
 
     # 
     #MAIN

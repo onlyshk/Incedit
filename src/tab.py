@@ -25,13 +25,13 @@ class Tab(gtk.Notebook):
  
   already_save = []
   editor = gtk.TextView()
- 
+
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
     self.set_property('show-tabs', True) 
     self.set_scrollable(True)
- 
+  
   #
   #tab-label provide
   #
@@ -181,4 +181,21 @@ class Tab(gtk.Notebook):
           del self.already_save[pagenum]
  
           self.remove_page(pagenum)
+
+  #
+  #copy text provide
+  #
+  def copy_buffer(self):
+      self.editor.emit("copy_clipboard")
+  
+  #
+  #cut text provide
+  #
+  def cut_buffer(self):
+      self.editor.emit("cut_clipboard")
  
+  #
+  #paste text provide
+  #
+  def paste_buffer(self):
+      self.editor.emit("paste_clipboard")
