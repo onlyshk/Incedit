@@ -225,6 +225,9 @@ class Incedit:
         self.file_close.connect("activate",self.close_file)
         self.file_exit.connect("activate",self.exit)
 
+        self.edit_undo.connect("activate", self.on_undo)
+        self.edit_redo.connect("activate", self.on_redo)
+
         self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
         self.toolbar_check_menu.connect("activate", self.toolbar_show) 
  
@@ -338,7 +341,8 @@ class Incedit:
     #
     def exit(self,widget):
         dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
-                                   gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save current file and qiut?")
+                                   gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,
+                                   "Do you want to save current file and qiut?")
         dialog.set_title("Close file!")
         response = dialog.run()
         
@@ -372,6 +376,18 @@ class Incedit:
          tab.Tab.close_tab(self.tab_panel,child)
          self.main_window.show_all()
  
+    #
+    #undo provide
+    #
+    def on_undo(self,widget):
+         pass
+
+    #
+    #redo provide
+    #
+    def on_redo(self,widget):
+         pass   
+
     # 
     #MAIN
     #
