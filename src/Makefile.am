@@ -11,4 +11,5 @@ incedit_PYTHON = \
 	toolbar.py \
 	menu.py \
 	sep.py \
-	print.py
+	print.py \
+	undostack.py

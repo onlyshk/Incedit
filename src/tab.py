@@ -21,7 +21,8 @@ import gtk
 import utils
 import pango
 from incedit import Incedit
- 
+import undostack
+
 class Tab(gtk.Notebook):
  
   already_save = []
@@ -212,3 +213,13 @@ class Tab(gtk.Notebook):
       textbuffer = self.editor.get_buffer()
       textbuffer.place_cursor(textbuffer.get_end_iter())
       textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())
+
+  def undo(self): 
+      self.editor.set_buffer(undostack.UndoableBuffer())
+      textbuffer = self.editor.get_buffer()
+      textbuffer.undo()
+
+  def redo(self):
+      self.editor.set_buffer(undostack.UndoableBuffer())
+      textbuffer = self.editor.get_buffer()
+      textbuffer.redo()

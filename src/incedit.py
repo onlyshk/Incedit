@@ -25,6 +25,7 @@ import utils
 import toolbar
 import sep
 import printer
+import undostack
 
 #
 #Main class
@@ -384,13 +385,13 @@ class Incedit:
     #undo provide
     #
     def on_undo(self,widget):
-         tab.Tab.undo(self.tab_panel,widget)
-
+         tab.Tab.undo(self.tab_panel)
+         self.main_window.show_all()
     #
     #redo provide
     #
     def on_redo(self,widget):
-         pass   
+         tab.Tab.redo(self.tab_panel)
     
     #
     #copy/paste/cut/delete/select_all
