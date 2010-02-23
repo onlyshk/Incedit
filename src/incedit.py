@@ -24,6 +24,7 @@ import tab
 import utils
 import toolbar
 import sep
+import printer
 
 #
 #Main class
@@ -222,6 +223,7 @@ class Incedit:
         self.file_open.connect("activate",self.open_file)
         self.file_save.connect("activate",self.save_file)
         self.file_save_as.connect("activate",self.save_as_file)
+        self.file_print.connect("activate",self.print_file)
         self.file_close.connect("activate",self.close_file)
         self.file_exit.connect("activate",self.exit)
 
@@ -407,7 +409,11 @@ class Incedit:
    
     def select(self,widget):
          tab.Tab.select_all(self.tab_panel)   
-
+    #
+    #print file
+    #
+    def print_file(self,widget):
+        pass
     # 
     #MAIN
     #

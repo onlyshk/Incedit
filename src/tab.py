@@ -19,6 +19,7 @@
  
 import gtk 
 import utils
+import pango
 from incedit import Incedit
  
 class Tab(gtk.Notebook):
@@ -31,7 +32,7 @@ class Tab(gtk.Notebook):
     self.set_property('homogeneous', True)
     self.set_property('show-tabs', True) 
     self.set_scrollable(True)
-  
+
   #
   #tab-label provide
   #
@@ -62,7 +63,9 @@ class Tab(gtk.Notebook):
  
       self.already_save.append(self.get_current_page()) 
       label.show_all()
- 
+         
+      self.editor.modify_font(pango.FontDescription("Monospace 12"))
+
       self.show_all()
  
       return self.editor

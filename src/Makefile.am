@@ -10,4 +10,5 @@ incedit_PYTHON = \
 	tab.py \
 	toolbar.py \
 	menu.py \
-	sep.py
+	sep.py \
+	print.py
