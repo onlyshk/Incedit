@@ -1,18 +1,19 @@
-2007-12-28  Johannes Schmid,,,  <jhs@idefix>
+2010-02-21  Kuleshov Alexander  <kuleshovmail@gmail.com>
 
-	reviewed by: <delete if not using a buddy>
+Release notes: 
 
-	* project.anjuta:
+- Incedit project Version 0.1.0:
 
-2007-12-23  Johannes Schmid,,,  <jhs@idefix>
+ * Create new file
+ * Open new file
+ * Save file
+ * Save as file
+ * Tab system
+ * Close file
 
-	reviewed by: <delete if not using a buddy>
+- Incedit project Version 0.1.2
 
-	* src/Makefile.am.tpl:
-
-2007-12-23  Johannes Schmid,,,  <jhs@idefix>
-
-	reviewed by: <delete if not using a buddy>
-
-	* src/Makefile.am.tpl:
-
+* show/hide toolbar
+* show/hide statusbar
+* copy/paste/cut/delete/select all
+* saving when tab close

@@ -230,6 +230,8 @@ class Incedit:
         self.edit_copy.connect("activate", self.copy)
         self.edit_cut.connect("activate", self.cut)
         self.edit_paste.connect("activate", self.paste)
+        self.edit_delete.connect("activate", self.delete)   
+        self.edit_select_all.connect("activate", self.select)
 
         self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
         self.toolbar_check_menu.connect("activate", self.toolbar_show) 
@@ -387,24 +389,24 @@ class Incedit:
     #
     def on_redo(self,widget):
          pass   
-
+    
     #
-    #copy text provide
+    #copy/paste/cut/delete/select_all
     #
     def copy(self,widget):
         tab.Tab.copy_buffer(self.tab_panel)    
 
-    #
-    #cut text provide
-    #
     def cut(self,widget):
         tab.Tab.cut_buffer(self.tab_panel)   
 
-    #
-    #paste text provide
-    #
     def paste(self,widget):
         tab.Tab.paste_buffer(self.tab_panel)   
+  
+    def delete(self,widget):
+         tab.Tab.delete_buffer(self.tab_panel)
+   
+    def select(self,widget):
+         tab.Tab.select_all(self.tab_panel)   
 
     # 
     #MAIN

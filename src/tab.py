@@ -183,19 +183,29 @@ class Tab(gtk.Notebook):
           self.remove_page(pagenum)
 
   #
-  #copy text provide
+  #copy/paste/cut
   #
   def copy_buffer(self):
       self.editor.emit("copy_clipboard")
-  
-  #
-  #cut text provide
-  #
   def cut_buffer(self):
       self.editor.emit("cut_clipboard")
- 
-  #
-  #paste text provide
-  #
   def paste_buffer(self):
       self.editor.emit("paste_clipboard")
+
+  #
+  #delete text provide
+  #
+  def delete_buffer(self):  
+      textbuffer = self.editor.get_buffer()    
+      if textbuffer.get_has_selection() == False:
+         pass
+      else:
+         textbuffer.delete_selection(True, True)
+
+  #
+  #select all provide
+  #
+  def select_all(self):
+      textbuffer = self.editor.get_buffer()
+      textbuffer.place_cursor(textbuffer.get_end_iter())
+      textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())
