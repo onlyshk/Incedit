@@ -160,8 +160,7 @@ class Tab(gtk.Notebook):
   #
   #close file
   #
-  def close_tab(self, child):
-       
+  def close_tab(self,child,widget):    
       dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
                                  gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,"Do you want to save file?")
       dialog.set_title("Close file!")

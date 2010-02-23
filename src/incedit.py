@@ -320,8 +320,7 @@ class Incedit:
         elif response == gtk.RESPONSE_CANCEL:
             dialog.destroy()
         
-        dialog.destroy()
-        return file_name    
+        dialog.destroy() 
   
     #
     #Save file
@@ -373,9 +372,8 @@ class Incedit:
     #close file
     #
     def close_file(self,child):
-         tab.Tab.close_tab(self.tab_panel,child)
-         self.main_window.show_all()
- 
+         widget = self.tab_panel
+         tab.Tab.close_tab(self.tab_panel,widget,child) 
     #
     #undo provide
     #
