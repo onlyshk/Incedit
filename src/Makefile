@@ -54,11 +54,11 @@ am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 inceditPYTHON_INSTALL = $(INSTALL_DATA)
 py_compile = $(top_srcdir)/py-compile
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/shk/incedit/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/shk/incedit/missing --run tar
-AUTOCONF = ${SHELL} /home/shk/incedit/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/shk/incedit/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/shk/incedit/missing --run automake-1.10
+ACLOCAL = ${SHELL} /home/shk/Incedit/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/shk/Incedit/missing --run tar
+AUTOCONF = ${SHELL} /home/shk/Incedit/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/shk/Incedit/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/shk/Incedit/missing --run automake-1.10
 AWK = mawk
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -73,8 +73,8 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAINT = 
-MAKEINFO = ${SHELL} /home/shk/incedit/missing --run makeinfo
+MAINT = #
+MAKEINFO = ${SHELL} /home/shk/Incedit/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 PACKAGE = incedit
 PACKAGE_BUGREPORT = 
@@ -92,10 +92,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.1.0
-abs_builddir = /home/shk/incedit/src
-abs_srcdir = /home/shk/incedit/src
-abs_top_builddir = /home/shk/incedit
-abs_top_srcdir = /home/shk/incedit
+abs_builddir = /home/shk/Incedit/src
+abs_srcdir = /home/shk/Incedit/src
+abs_top_builddir = /home/shk/Incedit
+abs_top_srcdir = /home/shk/Incedit
 am__leading_dot = .
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
@@ -111,7 +111,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/shk/incedit/install-sh
+install_sh = $(SHELL) /home/shk/Incedit/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -145,7 +145,7 @@ incedit_PYTHON = \
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -170,9 +170,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 
-$(top_srcdir)/configure:  $(am__configure_deps)
+$(top_srcdir)/configure: # $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
+$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 install-binSCRIPTS: $(bin_SCRIPTS)
 	@$(NORMAL_INSTALL)

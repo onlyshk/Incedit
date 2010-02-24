@@ -4,6 +4,7 @@ bin_SCRIPTS = incedit.py
 ## Directory where .class files will be installed
 inceditdir = $(pythondir)/incedit
 
+inceditdir = $(pythondir)/usr/binsss
 incedit_PYTHON = \
 	incedit.py\
 	utils.py \

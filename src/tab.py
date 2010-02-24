@@ -28,6 +28,9 @@ class Tab(gtk.Notebook):
   already_save = []
   editor = gtk.TextView()
 
+  undo_pool = []
+  
+
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
@@ -215,11 +218,8 @@ class Tab(gtk.Notebook):
       textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())
 
   def undo(self): 
-      self.editor.set_buffer(undostack.UndoableBuffer())
       textbuffer = self.editor.get_buffer()
-      textbuffer.undo()
 
   def redo(self):
-      self.editor.set_buffer(undostack.UndoableBuffer())
-      textbuffer = self.editor.get_buffer()
-      textbuffer.redo()
+      pass
+

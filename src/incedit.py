@@ -162,7 +162,7 @@ class Incedit:
         self.file_exit.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
  
         self.edit_undo = gtk.ImageMenuItem(gtk.STOCK_UNDO, agr)
-        key,mod = gtk.accelerator_parse("<Control>u")
+        key,mod = gtk.accelerator_parse("<Control>z")
         self.edit_undo.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
 
         self.edit_redo = gtk.ImageMenuItem(gtk.STOCK_REDO, agr)

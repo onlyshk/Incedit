@@ -78,11 +78,11 @@ DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/shk/incedit/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/shk/incedit/missing --run tar
-AUTOCONF = ${SHELL} /home/shk/incedit/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/shk/incedit/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/shk/incedit/missing --run automake-1.10
+ACLOCAL = ${SHELL} /home/shk/Incedit/missing --run aclocal-1.10
+AMTAR = ${SHELL} /home/shk/Incedit/missing --run tar
+AUTOCONF = ${SHELL} /home/shk/Incedit/missing --run autoconf
+AUTOHEADER = ${SHELL} /home/shk/Incedit/missing --run autoheader
+AUTOMAKE = ${SHELL} /home/shk/Incedit/missing --run automake-1.10
 AWK = mawk
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -97,8 +97,8 @@ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAINT = 
-MAKEINFO = ${SHELL} /home/shk/incedit/missing --run makeinfo
+MAINT = #
+MAKEINFO = ${SHELL} /home/shk/Incedit/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 PACKAGE = incedit
 PACKAGE_BUGREPORT = 
@@ -116,10 +116,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.1.0
-abs_builddir = /home/shk/incedit
-abs_srcdir = /home/shk/incedit
-abs_top_builddir = /home/shk/incedit
-abs_top_srcdir = /home/shk/incedit
+abs_builddir = /home/shk/Incedit
+abs_srcdir = /home/shk/Incedit
+abs_top_builddir = /home/shk/Incedit
+abs_top_srcdir = /home/shk/Incedit
 am__leading_dot = .
 am__tar = ${AMTAR} chof - "$$tardir"
 am__untar = ${AMTAR} xf -
@@ -135,7 +135,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/shk/incedit/install-sh
+install_sh = $(SHELL) /home/shk/Incedit/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -175,7 +175,7 @@ all: config.h
 .SUFFIXES:
 am--refresh:
 	@:
-$(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
+$(srcdir)/Makefile.in: # $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -202,9 +202,9 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck
 
-$(top_srcdir)/configure:  $(am__configure_deps)
+$(top_srcdir)/configure: # $(am__configure_deps)
 	cd $(srcdir) && $(AUTOCONF)
-$(ACLOCAL_M4):  $(am__aclocal_m4_deps)
+$(ACLOCAL_M4): # $(am__aclocal_m4_deps)
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.h: stamp-h1
@@ -216,7 +216,7 @@ config.h: stamp-h1
 stamp-h1: $(srcdir)/config.h.in $(top_builddir)/config.status
 	@rm -f stamp-h1
 	cd $(top_builddir) && $(SHELL) ./config.status config.h
-$(srcdir)/config.h.in:  $(am__configure_deps) 
+$(srcdir)/config.h.in: # $(am__configure_deps) 
 	cd $(top_srcdir) && $(AUTOHEADER)
 	rm -f stamp-h1
 	touch $@
@@ -531,6 +531,7 @@ installdirs-am:
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
+         
 install-exec: install-exec-recursive
 install-data: install-data-recursive
 uninstall: uninstall-recursive
