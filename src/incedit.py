@@ -26,6 +26,7 @@ import toolbar
 import sep
 import printer
 import undostack
+import about 
 
 #
 #Main class
@@ -87,6 +88,14 @@ class Incedit:
         self.show_toolbar_menu   = gtk.Menu()
         self.show_statusbar_menu = gtk.Menu()        
 
+        #search menu
+        self.search_menu         = gtk.Menu()
+        self.search_text_menu    = gtk.Menu()
+
+        #about menu
+        self.about_menu          = gtk.Menu()
+        self.about_form_menu     = gtk.Menu()
+
         #add sub-menu menu items
         self.file_item = gtk.MenuItem("File")
         self.file_item.set_submenu(self.file_menu)
@@ -127,10 +136,20 @@ class Incedit:
         self.show_statusbar_item = gtk.MenuItem("Show statusbar")
         self.show_statusbar_item.set_submenu(self.show_statusbar_menu)
 
+        self.search_item = gtk.MenuItem("Search")
+        self.search_item.set_submenu(self.search_menu)
+        self.search_text_item = gtk.MenuItem("Search text")
+        self.search_text_item.set_submenu(self.search_text_menu)
+
         self.statusbar_check_menu = gtk.CheckMenuItem("Show StatusBar")
         self.statusbar_check_menu.set_active(True)
         self.toolbar_check_menu = gtk.CheckMenuItem("Show ToolBar")
         self.toolbar_check_menu.set_active(True)
+
+        self.about_menu_item = gtk.MenuItem("About")
+        self.about_menu_item.set_submenu(self.about_menu)
+        self.about_form_menu_item = gtk.MenuItem("About")
+        self.about_form_menu_item.set_submenu(self.about_form_menu)
 
         #image file menu items
         self.file_new = gtk.ImageMenuItem(gtk.STOCK_NEW, agr)
@@ -189,6 +208,14 @@ class Incedit:
         key,mod = gtk.accelerator_parse("<Control>a")
         self.edit_select_all.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
 
+        self.search_search_text = gtk.ImageMenuItem("Find...",agr)
+        key,mod = gtk.accelerator_parse("<Control>f")
+        self.search_search_text.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
+        self.about = gtk.ImageMenuItem("About",agr)
+        key,mod = gtk.accelerator_parse("<ALT>A")
+        self.about.add_accelerator("activate", agr, key, mod, gtk.ACCEL_VISIBLE)
+
         # add menu
         self.file_menu.append(self.file_new)
         self.file_menu.append(self.file_open)       
@@ -216,9 +243,15 @@ class Incedit:
         self.view_menu.append(self.statusbar_check_menu)
         self.view_menu.append(self.toolbar_check_menu)
 
+        self.search_menu.append(self.search_search_text)
+
+        self.about_menu.append(self.about)
+
         self.main_menu.append(self.file_item)
         self.main_menu.append(self.edit_item)
         self.main_menu.append(self.view_item)
+        self.main_menu.append(self.search_item) 
+        self.main_menu.append(self.about_menu_item)
 
         self.file_new.connect("activate",self.new_file)
         self.file_open.connect("activate",self.open_file)
@@ -238,6 +271,10 @@ class Incedit:
 
         self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
         self.toolbar_check_menu.connect("activate", self.toolbar_show) 
+
+        self.search_search_text.connect("activate",self.find_and_select)
+
+        self.about.connect("activate",self.show_about)
  
         self.vbox.pack_start(self.main_menu, False, False, 0)
  
@@ -410,11 +447,26 @@ class Incedit:
    
     def select(self,widget):
          tab.Tab.select_all(self.tab_panel)   
+
     #
     #print file
     #
     def print_file(self,widget):
         pass
+
+    #
+    #find text provide
+    # 
+    def find_and_select(self,widget): 
+        pass
+ 
+    #
+    #About form
+    #
+    def show_about(self,widget):
+ 
+         about.on_clicked(widget)
+
     # 
     #MAIN
     #

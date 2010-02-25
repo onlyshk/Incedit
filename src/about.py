@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# undostack.py - provide undo/redo func
+# about.py - About form
 # Copyright (C) Kuleshov Alexander 2010 <kuleshovmail@gmail.com>
 # 
 # main.py is free software: you can redistribute it and/or modify it
@@ -19,5 +19,12 @@
 
 import gtk
 
-
- 
+def on_clicked(widget):
+     about = gtk.AboutDialog()
+     about.set_program_name("Incedit")
+     about.set_version("0.1.0")
+     about.set_copyright("(c) Kuleshov Alexander <kuleshovmail@gmail.com>")
+     about.set_comments("Incedit - it's lightweight text editor")
+     about.set_website("http://github.com/onlyshk/Incedit")
+     about.run()
+     about.destroy()

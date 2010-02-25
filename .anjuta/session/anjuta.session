@@ -4,7 +4,7 @@ Maximized=1
 Geometry=1280x950+0+51
 
 [File Loader]
-Files=file:///home/shk/Incedit/src/undostack.py#18%%%file:///home/shk/Incedit/src/incedit.py#417
+Files=///home/shk/Incedit/src/about.py#26%%%file:///home/shk/Incedit/src/incedit.py#5
 
 [Execution]
 Program arguments=

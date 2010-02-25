@@ -13,4 +13,5 @@ incedit_PYTHON = \
 	menu.py \
 	sep.py \
 	print.py \
-	undostack.py
+	undostack.py \
+	about.py

@@ -26,24 +26,29 @@ import undostack
 class Tab(gtk.Notebook):
  
   already_save = []
-  editor = gtk.TextView()
 
-  undo_pool = []
-  
+  #get access to editor  
+  def get_editor(self):
+      editor = gtk.TextView()
+      return self.editor
+ 
+  #get access to textbuffer of editor
+  def get_textbuffer(self):
+      textbuffer = self.editor.get_buffer()
+      return textbuffer
 
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
     self.set_property('show-tabs', True) 
     self.set_scrollable(True)
-
+    
   #
   #tab-label provide
   #
   def set_label(self,label):
       label = self.create_tab_label(label,self.editor)
       self.set_tab_label(self.get_nth_page(self.get_current_page()),label)
- 
       label.show_all()
       self.show_all()
  
@@ -218,7 +223,7 @@ class Tab(gtk.Notebook):
       textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())
 
   def undo(self): 
-      textbuffer = self.editor.get_buffer()
+      pass  
 
   def redo(self):
       pass
