@@ -4,7 +4,7 @@
 # incedit.py - main app file
 # Copyright (C) Kuleshov Alexander 2010 <kuleshovmail@gmail.com>
 # 
-# main.py is free software: you can redistribute it and/or modify it
+# Incedit is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -20,13 +20,15 @@
 import pygtk
 pygtk.require('2.0')
 import gtk
-import tab
-import utils
-import toolbar
-import sep
-import printer
-import undostack
+
 import about 
+import printer
+import sep
+import tab
+import toolbar
+import undostack
+import utils
+import find
 
 #
 #Main class
@@ -34,7 +36,7 @@ import about
 class Incedit:
  
     vbox = gtk.VBox(homogeneous = False, spacing = 0)
-    main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+    main_window = gtk.Window()
    
     opened_files = []
    
@@ -458,13 +460,13 @@ class Incedit:
     #find text provide
     # 
     def find_and_select(self,widget): 
-        pass
+        find_wnd = find.Finder()
+        find_wnd.show()
  
     #
     #About form
     #
     def show_about(self,widget):
- 
          about.on_clicked(widget)
 
     # 
