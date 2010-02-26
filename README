@@ -1,23 +1,51 @@
-Incedit - writen on python/pygtk light text and in future code editor with plugin system! 
+Version
+=======
 
-At this point ready next func:
+	 0.1.0_alpha
 
-* Create new file
-* Open new file
-* Save file
-* Save as file
-* Tab system
-* Close file
-* copy/paste/cut/delete/select text
-* toolbar,statusbar show/hide
+This is a development version of the product for testing 
+and feedback purposes only.
 
-- AUTHOR - Kuleshov Alexander
 
-- Web    - http://github.com/onlyshk/Incedit
+What is Scribes?
+================
 
-- if you found a bug, please write me - http://github.com/onlyshk/Incedit/issues or e-mail kuleshovmail@gmail.com
+Scribes is a editor for GNOME. It is simple and easy to use.
+For more information about Scribes, point your browser to 
+the link below.
 
-- Incedit need in art work and developers, if you want to help project please write to me on kuleshovmail@gmail.com
+	http://scribes.sourceforge.net/
 
-Incedit is released under the GNU LGPL
+	
+Requirements
+============
 
+To use scribes you need the following software installed on
+your computer:
+
+	- GNOME-2.12
+	- Python-2.4
+	- PyGTK-2.8
+	- gnome-python-2.12
+	- gnome-python-extras-2.12
+
+	
+Installation
+============
+
+To install Scribes, launch gnome-terminal and type the 
+following at the command prompt as root:
+
+	python setup.py install 
+	
+	
+Usage
+=====
+
+To start Scribes, type the following at the command prompt:
+
+	scribes
+	
+You can also start Scribes from the GNOME Application Menu.
+
+	Application Menu -> Accessories -> Scribes Text Editor

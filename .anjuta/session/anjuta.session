@@ -1,10 +1,10 @@
 
 [Anjuta]
 Maximized=1
-Geometry=1280x950+0+51
+Geometry=1280x948+0+51
 
 [File Loader]
-Files=///home/shk/Incedit/src/about.py#26%%%file:///home/shk/Incedit/src/incedit.py#5
+Files=file:///home/shk/Incedit/src/incedit.py#485%%%file:///home/shk/Incedit/src/tab.py#226%%%file:///home/shk/Incedit/src/find.py#69
 
 [Execution]
 Program arguments=
