@@ -1,23 +1,23 @@
-Version
-=======
+Incedit - writen on python/pygtk light text and in future code editor with plugin system! 
 
-	 0.1.0
+At this point ready next func:
 
-This is a development version of the product for testing 
-and feedback purposes only.
+* Create new file
+* Open new file
+* Save file
+* Save as file
+* Tab system
+* Close file
+* copy/paste/cut/delete/select text
+* toolbar,statusbar show/hide
 
+- AUTHOR - Kuleshov Alexander
 
-What is Incedit?
-================
+- Web    - http://github.com/onlyshk/Incedit
 
-Incedit is a editor for GNOME. It is simple and easy to use.
-For more information about Incedit, point your browser to 
-the link below.
+- if you found a bug, please write me - http://github.com/onlyshk/Incedit/issues or e-mail kuleshovmail@gmail.com
 
-	http://github.com/onlyshk/Incedit
+- Incedit need in art work and developers, if you want to help project please write to me on kuleshovmail@gmail.com
 
+Incedit is released under the GNU LGPL
 
-
-
-	
-	
