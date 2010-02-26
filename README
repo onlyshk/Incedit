@@ -1,51 +1,23 @@
 Version
 =======
 
-	 0.1.0_alpha
+	 0.1.0
 
 This is a development version of the product for testing 
 and feedback purposes only.
 
 
-What is Scribes?
+What is Incedit?
 ================
 
-Scribes is a editor for GNOME. It is simple and easy to use.
-For more information about Scribes, point your browser to 
+Incedit is a editor for GNOME. It is simple and easy to use.
+For more information about Incedit, point your browser to 
 the link below.
 
-	http://scribes.sourceforge.net/
+	http://github.com/onlyshk/Incedit
+
+
+
 
 	
-Requirements
-============
-
-To use scribes you need the following software installed on
-your computer:
-
-	- GNOME-2.12
-	- Python-2.4
-	- PyGTK-2.8
-	- gnome-python-2.12
-	- gnome-python-extras-2.12
-
 	
-Installation
-============
-
-To install Scribes, launch gnome-terminal and type the 
-following at the command prompt as root:
-
-	python setup.py install 
-	
-	
-Usage
-=====
-
-To start Scribes, type the following at the command prompt:
-
-	scribes
-	
-You can also start Scribes from the GNOME Application Menu.
-
-	Application Menu -> Accessories -> Scribes Text Editor
