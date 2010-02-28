@@ -48,8 +48,6 @@ class Incedit:
         self.initializeEditor()
         self.toolbar.init_toolbar()
 
-        self.hide_findbox(self)
-
         self.main_window.add(self.vbox)
          
         self.tab_panel.new_tab("New File")
@@ -289,24 +287,39 @@ class Incedit:
     # Init editor's elements
     #
     def initializeEditor(self):
-        
-
- 
         self.toolbar   = toolbar.ToolBar()   
  
         self.toolbutton = gtk.Button() 
  
         self.textbuffer = gtk.TextBuffer()  
 
-        self.find_box   = gtk.VBox()
-        
+        self.find_box   = gtk.HBox() 
+       
+        #element for find box
+        text_to_find = gtk.Entry()
+        text_to_find.set_size_request(500,26)
+        find_button = gtk.Button()
+        image_find =  gtk.Image()
+        image_find.set_from_stock(gtk.STOCK_FIND,gtk.ICON_SIZE_SMALL_TOOLBAR)
+        find_button.set_image(image_find)
+        find_button.set_relief(gtk.RELIEF_NONE) 
+        close_button  = gtk.Button() 
+        image_close =  gtk.Image()
+        image_close.set_from_stock(gtk.STOCK_CLOSE,gtk.ICON_SIZE_SMALL_TOOLBAR)
+        close_button.set_image(image_close)
+        close_button.set_relief(gtk.RELIEF_NONE)
+
+        self.find_box.pack_start(text_to_find,False,False,2)
+        self.find_box.pack_start(find_button,False,False,4)
+        self.find_box.pack_end(close_button,False,False,2)
+
         self.vbox.pack_start(self.toolbar,False,False,0)
         self.vbox.add(self.tab_panel)   
         
-
         toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
         toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
+        close_button.connect("clicked",self.hide_find_box)
 
         return self.tab_panel
 
@@ -434,7 +447,7 @@ class Incedit:
     #find text provide
     def find_and_select(self,widget): 
           if self.FIND % 2 == 1:
-             self.vbox.pack_start(self.find_box,False,False,20)
+             self.vbox.pack_start(self.find_box,False,False,4)
              self.FIND = self.FIND + 1
              self.main_window.show_all()
              return
@@ -448,8 +461,10 @@ class Incedit:
          about.on_clicked(widget)
 
     #hide find box
-    def hide_findbox(self,widget):
-         pass
+    def hide_find_box(self,widget):
+         self.vbox.remove(self.find_box)
+         self.FIND = self.FIND + 1
+         return
    
 
     def main(self):
