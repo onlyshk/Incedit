@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# about.py - About form
+# editor.py - provide editor
 # Copyright (C) Kuleshov Alexander 2010 <kuleshovmail@gmail.com>
 # 
 # main.py is free software: you can redistribute it and/or modify it
@@ -18,15 +18,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
 import gtk
-import editor
-import tab
 
-def on_clicked(widget):
-     about = gtk.AboutDialog()
-     about.set_program_name("Incedit")
-     about.set_version("0.1.2")
-     about.set_copyright("(c) Kuleshov Alexander <kuleshovmail@gmail.com>")
-     about.set_comments("Incedit - it's lightweight editor")
-     about.set_website("http://github.com/onlyshk/Incedit")
-     about.run()
-     about.destroy()
+class Editor(gtk.TextView):
+      def __init__(self):
+         gtk.TextView.__init__(self)
+
+      def get_textbuffer(self):
+          self = textbuffer #= self.get_textbuffer()
+          textbuffer = self.get_textbuffer()
+          return self.textbuffer

@@ -14,4 +14,5 @@ incedit_PYTHON = \
 	sep.py \
 	print.py \
 	undostack.py \
-	about.py
+	about.py \
+	find.py

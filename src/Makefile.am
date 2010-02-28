@@ -15,4 +15,5 @@ incedit_PYTHON = \
 	print.py \
 	undostack.py \
 	about.py \
-	find.py
+	find.py \
+	editor.py

@@ -28,7 +28,6 @@ import sep
 import toolbar
 import undostack
 import utils
-import find
 
 #
 #Main class
@@ -37,7 +36,7 @@ class Incedit:
  
     vbox = gtk.VBox(homogeneous = False, spacing = 0)
     main_window = gtk.Window()
-    #tab_panel  = tab.Tab()
+
     opened_files = []
    
     def __init__(self):
@@ -307,9 +306,6 @@ class Incedit:
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
  
         return self.tab_panel
-
-   
-    
     #
     #tab close buttons
     #

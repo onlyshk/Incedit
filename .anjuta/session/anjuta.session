@@ -1,0 +1,12 @@
+
+[Anjuta]
+Maximized=1
+Geometry=1280x950+0+51
+
+[File Loader]
+Files=file:///home/shk/Incedit/src/about.py#34%%%file:///home/shk/Incedit/src/editor.py#28%%%file:///home/shk/Incedit/src/tab.py#220%%%file:///home/shk/Incedit/src/incedit.py#40
+
+[Execution]
+Program arguments=
+Run in terminal=2
+Last selected uri=file:///home/shk/Incedit/src/incedit.py

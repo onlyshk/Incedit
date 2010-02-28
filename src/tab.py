@@ -21,13 +21,13 @@ import gtk
 from incedit import Incedit
 import utils
 import pango
-import find
 import undostack
+import editor
 
 class Tab(gtk.Notebook):
  
   already_save = []
-  editor = gtk.TextView()
+  editor = editor.Editor()
   
  
   def __init__(self):
@@ -225,7 +225,7 @@ class Tab(gtk.Notebook):
       textbuffer = self.editor.get_buffer()
       textbuffer.set_text(string)  
 
-
+     
 
 
 
