@@ -29,14 +29,12 @@ import toolbar
 import undostack
 import utils
 
-#
-#Main class
-#
+
 class Incedit:
  
     vbox = gtk.VBox(homogeneous = False, spacing = 0)
     main_window = gtk.Window()
-
+    FIND = 1
     opened_files = []
    
     def __init__(self):
@@ -48,17 +46,20 @@ class Incedit:
         self.init_menu()
         self.init_tab()
         self.initializeEditor()
-        self.init_tab_buttons() 
         self.toolbar.init_toolbar()
-        
+
+        self.hide_findbox(self)
+
         self.main_window.add(self.vbox)
          
         self.tab_panel.new_tab("New File")
- 
+
+        self.statusbar = gtk.Statusbar()
+        self.vbox.pack_end(self.statusbar,False,False)
+        
         self.main_window.show_all()
-    #
-    # application menu
-    #    
+
+    # application menu  
     def init_menu(self):  
         agr = gtk.AccelGroup()
         self.main_window.add_accel_group(agr)
@@ -289,37 +290,27 @@ class Incedit:
     #
     def initializeEditor(self):
         
-        self.statusbar = gtk.Statusbar()
+
  
         self.toolbar   = toolbar.ToolBar()   
  
         self.toolbutton = gtk.Button() 
  
         self.textbuffer = gtk.TextBuffer()  
-         
+
+        self.find_box   = gtk.VBox()
+        
         self.vbox.pack_start(self.toolbar,False,False,0)
-        self.vbox.add(self.tab_panel)
-        self.vbox.pack_start(self.statusbar,False,False,0)
- 
+        self.vbox.add(self.tab_panel)   
+        
+
         toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
         toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
- 
-        return self.tab_panel
-    #
-    #tab close buttons
-    #
-    def init_tab_buttons(self): 
-        close_image = gtk.image_new_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
-        image_w, image_h = gtk.icon_size_lookup(gtk.ICON_SIZE_MENU)
- 
-        self.toolbutton.set_relief(gtk.RELIEF_NONE)
-        self.toolbutton.set_size_request(image_w+2, image_h+2)
-        self.toolbutton.add(close_image)
 
-    #
+        return self.tab_panel
+
     # add new file
-    #
     def new_file(self,widget):
         pages_num = self.tab_panel.get_n_pages()
  
@@ -328,9 +319,7 @@ class Incedit:
         
         self.tab_panel.set_current_page(self.tab_panel.get_n_pages() - 1) 
 
-    #
     #Open file
-    #
     def open_file(self,widget):
         pages_num = self.tab_panel.get_n_pages()
  
@@ -373,22 +362,15 @@ class Incedit:
         
         dialog.destroy() 
   
-    #
     #Save file
-    #
     def save_file(self,widget):
         tab.Tab.save_file(self.tab_panel)
  
-    #
     #Save as file
-    #
     def save_as_file(self,widget):
         tab.Tab.save_as_file(self.tab_panel)
-        self.main_window.show_all()
- 
-    #
+
     #quit application
-    #
     def exit(self,widget):
         dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
                                    gtk.MESSAGE_INFO, gtk.BUTTONS_YES_NO,
@@ -401,44 +383,35 @@ class Incedit:
         else:
            gtk.main_quit()
  
-    #
     #toolbar show/hide
-    #
     def toolbar_show(self,widget):
          if widget.active: 
              self.toolbar.show()
          else:
              self.toolbar.hide()
-    
-    # 
+
     #statusbar show/hide
-    #
     def statusbar_show(self,widget):
          if widget.active: 
              self.statusbar.show()
          else: 
              self.statusbar.hide()
-    #
+
     #close file
-    #
     def close_file(self,child):
          widget = self.tab_panel
          tab.Tab.close_tab(self.tab_panel,widget,child) 
-    #
+
     #undo provide
-    #
     def on_undo(self,widget):
          tab.Tab.undo(self.tab_panel)
          self.main_window.show_all()
-    #
+
     #redo provide
-    #
     def on_redo(self,widget):
          tab.Tab.redo(self.tab_panel)
     
-    #
     #copy/paste/cut/delete/select_all
-    #
     def copy(self,widget):
         tab.Tab.copy_buffer(self.tab_panel)    
 
@@ -454,28 +427,31 @@ class Incedit:
     def select(self,widget):
          tab.Tab.select_all(self.tab_panel)   
 
-    #
     #print file
-    #
     def print_file(self,widget):
         pass
 
-    #
     #find text provide
-    # 
     def find_and_select(self,widget): 
-         find_wnd = find.Finder()
-         find_wnd.show()
-        
-    #
+          if self.FIND % 2 == 1:
+             self.vbox.pack_start(self.find_box,False,False,20)
+             self.FIND = self.FIND + 1
+             self.main_window.show_all()
+             return
+          else:
+             self.vbox.remove(self.find_box)
+             self.FIND = self.FIND + 1
+             return
+
     #About form
-    #
     def show_about(self,widget):
          about.on_clicked(widget)
 
-    # 
-    #MAIN
-    #
+    #hide find box
+    def hide_findbox(self,widget):
+         pass
+   
+
     def main(self):
         gtk.main()
  
