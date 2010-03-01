@@ -143,18 +143,19 @@ class Tab(gtk.Notebook):
   #
   #save file
   #
-  def save_file(self): 
+  def save_file(self,widget): 
       hbox = self.get_tab_label(self.get_nth_page(self.get_current_page()))
       label_of_tab = hbox.get_children()
       text_of_tab = label_of_tab[0].get_text()
- 
+
       if  text_of_tab == "New File":
          self.save_as_file() 
       else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
+         child = self.get_children()
          textbuffer = self.editor.get_buffer()
- 
+         textbuffer.set_text("ASD")
          file = open(name_of_file,"w")
          file.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                         textbuffer.get_end_iter()))
@@ -175,21 +176,24 @@ class Tab(gtk.Notebook):
           dialog.destroy()
           self.save_as_file()
   
-          pagenum = self.page_num(child) 
+          pagenum = self.page_num(widget)
+
           del self.already_save[pagenum]
  
           self.remove_page(pagenum)
       else: 
           dialog.destroy()
-          
-          pagenum = self.page_num(child) 
+         
+          pagenum = self.page_num(child)
+         
           del self.already_save[pagenum]
- 
-          self.remove_page(pagenum)
 
-  #
+          if pagenum == -1:
+             self.remove_page(-1)
+          else:
+             self.remove_page(pagenum)
+
   #copy/paste/cut
-  #
   def copy_buffer(self):
       self.editor.emit("copy_clipboard")
   def cut_buffer(self):
@@ -197,9 +201,7 @@ class Tab(gtk.Notebook):
   def paste_buffer(self):
       self.editor.emit("paste_clipboard")
 
-  #
   #delete text provide
-  #
   def delete_buffer(self):  
       textbuffer = self.editor.get_buffer()    
       if textbuffer.get_has_selection() == False:

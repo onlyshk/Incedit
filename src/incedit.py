@@ -273,7 +273,7 @@ class Incedit:
         self.statusbar_check_menu.connect("activate",  self.statusbar_show) 
         self.toolbar_check_menu.connect("activate", self.toolbar_show) 
 
-        self.search_search_text.connect("activate",self.find_and_select)
+        self.search_search_text.connect("activate",self.show_find_box)
 
         self.about.connect("activate",self.show_about)
  
@@ -319,6 +319,8 @@ class Incedit:
         toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
         toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
+  
+        find_button.connect("clicked",self.find)
         close_button.connect("clicked",self.hide_find_box)
 
         return self.tab_panel
@@ -377,11 +379,11 @@ class Incedit:
   
     #Save file
     def save_file(self,widget):
-        tab.Tab.save_file(self.tab_panel)
+        tab.Tab.save_file(self.tab_panel,widget)
  
     #Save as file
     def save_as_file(self,widget):
-        tab.Tab.save_as_file(self.tab_panel)
+        tab.Tab.save_as_file(self.tab_panel,widget)
 
     #quit application
     def exit(self,widget):
@@ -445,7 +447,7 @@ class Incedit:
         pass
 
     #find text provide
-    def find_and_select(self,widget): 
+    def show_find_box(self,widget): 
           if self.FIND % 2 == 1:
              self.vbox.pack_start(self.find_box,False,False,4)
              self.FIND = self.FIND + 1
@@ -455,6 +457,11 @@ class Incedit:
              self.vbox.remove(self.find_box)
              self.FIND = self.FIND + 1
              return
+
+    def find(self,widget):
+         textbuffer = Tab.editor.get_buffer()
+         #iter = textbuffer.get_iter_at_mark(textbuffer.get_mark("insert"))
+         textbuffer.set_text("ASD")
 
     #About form
     def show_about(self,widget):
