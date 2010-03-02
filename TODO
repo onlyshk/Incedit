@@ -20,5 +20,5 @@
 - Printing
 - Undo/redo
 - Find text
-+ Bug fix saveing file
-- Bug fix closing tab
++ Bug fix saving file (Need testing)
++ Bug fix closing tab (Need testing)
