@@ -76,7 +76,8 @@ class Tab(gtk.Notebook):
       box = gtk.HBox()
       label = gtk.Label(title)
       closebtn = gtk.Button()
-    
+      tab_child = self.page_num(self.get_children()[0])    
+
       image = gtk.Image()
       image.set_from_stock(gtk.STOCK_CLOSE, gtk.ICON_SIZE_MENU)
    
@@ -85,7 +86,7 @@ class Tab(gtk.Notebook):
       
       box.pack_start(label, True, True)
       box.pack_end(closebtn, False, False)
- 
+      
       closebtn.connect("clicked", self.close_tab, tab_child)
  
       return box
@@ -137,7 +138,7 @@ class Tab(gtk.Notebook):
  
           file_save.close()                 
           self.show_all()
-         
+
       elif response == gtk.RESPONSE_CANCEL:
           dialog.destroy()
  
@@ -179,29 +180,15 @@ class Tab(gtk.Notebook):
       if response == gtk.RESPONSE_YES:
           dialog.destroy()
           self.save_as_file()
-  
-          pagenum = self.page_num(widget)
-
-          del self.already_save[pagenum]
- 
-          self.remove_page(pagenum)
+          child = self.get_current_page()
+          del self.already_save[child]
+          print child
+          self.remove_page(child)
       else: 
           dialog.destroy()
-         
-          pagenum = self.page_num(child)
-         
-          del self.already_save[pagenum]
-         
-          hbox = self.get_tab_label(self.get_nth_page(self.get_current_page()))
-          label_of_tab = hbox.get_children()
-          text_of_tab = label_of_tab[0].get_text()
-          if text_of_tab != "New File":
-             self.remove_page(pagenum)
-
-          if pagenum == -1:
-             self.remove_page(-1)
-          else:
-             self.remove_page(pagenum)
+          child = self.get_current_page()
+          del self.already_save[child]
+          self.remove_page(child)
 
   #copy/paste/cut
   def copy_buffer(self,widget):
