@@ -22,14 +22,11 @@ from incedit import Incedit
 import utils
 import pango
 import undostack
-import editor
 
 class Tab(gtk.Notebook):
  
-  already_save = []
-  editor = editor.Editor()
-  
- 
+  already_save = [] 
+     
   def __init__(self):
     gtk.Notebook.__init__(self)
     self.set_property('homogeneous', True)
@@ -48,14 +45,14 @@ class Tab(gtk.Notebook):
   # 
   #add new tab
   #
-  def new_tab(self,label):
+  def new_tab(self,label):			
       self.editor = gtk.TextView()
       self.scrolled_window = gtk.ScrolledWindow()
       
       self.add(self.scrolled_window)
+      
+      self.scrolled_window.add(self.editor)
  
-      self.scrolled_window.add_with_viewport(self.editor)
-        
       self.scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
       
       label = self.create_tab_label(label,self.scrolled_window)
@@ -119,11 +116,18 @@ class Tab(gtk.Notebook):
  
       if file_name not in self.already_save:
          self.already_save.insert(self.get_current_page(),file_name) 
+
       if response == gtk.RESPONSE_OK:
           label = gtk.Label(file_name)
- 
-          textbuffer = self.editor.get_buffer()
-  
+
+          #get_child textview
+          child = self.get_current_page()
+          self.set_current_page(child)
+          text = self.get_children()
+          textview = text[child].get_child()
+
+          textbuffer = textview.get_buffer()
+
           file_save = open(file_name,"w")  
           file_save.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                               textbuffer.get_end_iter()))
@@ -153,9 +157,9 @@ class Tab(gtk.Notebook):
       else:
          page = self.get_current_page()      
          name_of_file = self.already_save[page]
-         child = self.get_children()
+
          textbuffer = self.editor.get_buffer()
-         textbuffer.set_text("ASD")
+
          file = open(name_of_file,"w")
          file.write(textbuffer.get_text(textbuffer.get_start_iter(),
                                         textbuffer.get_end_iter()))
@@ -187,6 +191,12 @@ class Tab(gtk.Notebook):
           pagenum = self.page_num(child)
          
           del self.already_save[pagenum]
+         
+          hbox = self.get_tab_label(self.get_nth_page(self.get_current_page()))
+          label_of_tab = hbox.get_children()
+          text_of_tab = label_of_tab[0].get_text()
+          if text_of_tab != "New File":
+             self.remove_page(pagenum)
 
           if pagenum == -1:
              self.remove_page(-1)
@@ -194,15 +204,15 @@ class Tab(gtk.Notebook):
              self.remove_page(pagenum)
 
   #copy/paste/cut
-  def copy_buffer(self):
+  def copy_buffer(self,widget):
       self.editor.emit("copy_clipboard")
-  def cut_buffer(self):
+  def cut_buffer(self,widget):
       self.editor.emit("cut_clipboard")
-  def paste_buffer(self):
+  def paste_buffer(self,widget):
       self.editor.emit("paste_clipboard")
 
   #delete text provide
-  def delete_buffer(self):  
+  def delete_buffer(self,widget):  
       textbuffer = self.editor.get_buffer()    
       if textbuffer.get_has_selection() == False:
          pass
@@ -212,7 +222,7 @@ class Tab(gtk.Notebook):
   #
   #select all provide
   #
-  def select_all(self):
+  def select_all(self,widget):
       textbuffer = self.editor.get_buffer()
       textbuffer.place_cursor(textbuffer.get_end_iter())
       textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())

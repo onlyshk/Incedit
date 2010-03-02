@@ -4,7 +4,7 @@ Maximized=1
 Geometry=1280x948+0+51
 
 [File Loader]
-Files=file:///home/shk/Incedit/src/tab.py#181%%%file:///home/shk/Incedit/src/incedit.py#283
+Files=file:///home/shk/Incedit/src/about.py#1%%%file:///home/shk/Incedit/Incedit/gtk-gui/generated.cs#1
 
 [Execution]
 Program arguments=

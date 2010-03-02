@@ -383,7 +383,7 @@ class Incedit:
  
     #Save as file
     def save_as_file(self,widget):
-        tab.Tab.save_as_file(self.tab_panel,widget)
+        tab.Tab.save_as_file(self.tab_panel)
 
     #quit application
     def exit(self,widget):
@@ -428,19 +428,19 @@ class Incedit:
     
     #copy/paste/cut/delete/select_all
     def copy(self,widget):
-        tab.Tab.copy_buffer(self.tab_panel)    
+        tab.Tab.copy_buffer(self.tab_panel,widget)    
 
     def cut(self,widget):
-        tab.Tab.cut_buffer(self.tab_panel)   
+        tab.Tab.cut_buffer(self.tab_panel,widget)   
 
     def paste(self,widget):
-        tab.Tab.paste_buffer(self.tab_panel)   
+        tab.Tab.paste_buffer(self.tab_panel,widget)   
   
     def delete(self,widget):
-         tab.Tab.delete_buffer(self.tab_panel)
+         tab.Tab.delete_buffer(self.tab_panel,widget)
    
     def select(self,widget):
-         tab.Tab.select_all(self.tab_panel)   
+         tab.Tab.select_all(self.tab_panel,widget)   
 
     #print file
     def print_file(self,widget):
@@ -460,7 +460,6 @@ class Incedit:
 
     def find(self,widget):
          textbuffer = Tab.editor.get_buffer()
-         #iter = textbuffer.get_iter_at_mark(textbuffer.get_mark("insert"))
          textbuffer.set_text("ASD")
 
     #About form
