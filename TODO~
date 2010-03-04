@@ -19,6 +19,7 @@
 
 - Printing
 - Undo/redo
-- Find text
-+ Bug fix saving file
-+ Bug fix closing tab
++ Find next
++ Find 
++ Bug fix saving file (Need testing)
++ Bug fix closing tab (Need testing)

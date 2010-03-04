@@ -8,8 +8,9 @@ At this point ready next func:
 * Save as file
 * Tab system
 * Close file
-* copy/paste/cut/delete/select text
+* copy/paste/cut/delete/select_all
 * toolbar,statusbar show/hide
+* Find text/Find next
 
 - AUTHOR - Kuleshov Alexander
 
