@@ -448,8 +448,13 @@ class Incedit:
 
     #print file
     def print_file(self,widget):
-        pass
-
+        textview = tab.Tab.editor_access(self.tab_panel)
+        textbuffer = textview.get_buffer()
+        printer_handle = open("PRN", "w") 
+        printer_handle.write(textbuffer.get_text(textbuffer.get_start_iter(),
+                                                 textbuffer.get_end_iter())) 
+        printer_handle.close()
+        
     #find text provide
     def show_find_box(self,widget): 
           if self.FIND % 2 == 1:
