@@ -29,14 +29,13 @@ import toolbar
 import undostack
 import utils
 
-
 class Incedit:
- 
+    
     vbox = gtk.VBox(homogeneous = False, spacing = 0)
     main_window = gtk.Window()
     FIND = 1
+    FIND_FOR_NEXT = 1
     opened_files = []
-   
     def __init__(self):
        
         self.main_window.set_size_request(800,600)
@@ -296,8 +295,8 @@ class Incedit:
         self.find_box   = gtk.HBox() 
        
         #element for find box
-        text_to_find = gtk.Entry()
-        text_to_find.set_size_request(500,26)
+        self.text_to_find = gtk.Entry()
+        self.text_to_find.set_size_request(500,26)
         find_button = gtk.Button()
         image_find =  gtk.Image()
         image_find.set_from_stock(gtk.STOCK_FIND,gtk.ICON_SIZE_SMALL_TOOLBAR)
@@ -308,11 +307,15 @@ class Incedit:
         image_close.set_from_stock(gtk.STOCK_CLOSE,gtk.ICON_SIZE_SMALL_TOOLBAR)
         close_button.set_image(image_close)
         close_button.set_relief(gtk.RELIEF_NONE)
-
-        self.find_box.pack_start(text_to_find,False,False,2)
+        self.find_next_button = gtk.Button("Find next")
+        self.find_next_button.set_relief(gtk.RELIEF_NONE)
+        
+        self.find_box.pack_start(self.text_to_find,False,False,2)
         self.find_box.pack_start(find_button,False,False,4)
         self.find_box.pack_end(close_button,False,False,2)
-
+        self.find_box.pack_start(self.find_next_button,False,False,5)
+        self.find_next_button.set_sensitive(False)
+ 
         self.vbox.pack_start(self.toolbar,False,False,0)
         self.vbox.add(self.tab_panel)   
         
@@ -322,7 +325,8 @@ class Incedit:
   
         find_button.connect("clicked",self.find)
         close_button.connect("clicked",self.hide_find_box)
-
+        self.find_next_button.connect("clicked",self.find_next)
+        
         return self.tab_panel
 
     # add new file
@@ -457,11 +461,45 @@ class Incedit:
              self.vbox.remove(self.find_box)
              self.FIND = self.FIND + 1
              return
-
+    #find
     def find(self,widget):
-         textbuffer = Tab.editor.get_buffer()
-         textbuffer.set_text("ASD")
+         self.textview = tab.Tab.editor_access(self.tab_panel)
+         self.textbuffer = self.textview.get_buffer()
+         self.search_str =  self.text_to_find.get_text()
+         
+         start_iter =  self.textbuffer.get_start_iter() 
+         self.match_start = self.textbuffer.get_start_iter() 
+         self.match_end =   self.textbuffer.get_end_iter() 
 
+         found = start_iter.forward_search(self.search_str,0, None)
+         
+         if found: 
+             self.match_start,self.match_end = found               
+             self.textbuffer.select_range(self.match_start,self.match_end)  
+             self.last_pos = self.textbuffer.create_mark('last_pos', self.match_end, False)    
+             self.find_next_button.set_sensitive(True)
+         else:
+             utils.dialog_text_not_find()
+             self.text_to_find.set_text("")    
+             self.find_next_button.set_sensitive(False)
+
+    def find_next(self,widget):
+         last_pos = self.textbuffer.get_mark('last_pos')
+         if last_pos == None:
+             return
+         else:
+             last_search_iter = self.textbuffer.get_iter_at_mark(last_pos)
+         found = last_search_iter.forward_search(self.search_str,0, None)
+     
+         if found:
+             self.match_start,self.match_end = found   
+             self.textbuffer.select_range(self.match_start,self.match_end)
+             self.last_pos = self.textbuffer.create_mark('last_pos', self.match_end, False) 
+         else:
+             utils.dialog_text_not_find()
+             self.text_to_find.set_text("")
+             self.find_next_button.set_sensitive(False)
+     
     #About form
     def show_about(self,widget):
          about.on_clicked(widget)
@@ -470,6 +508,8 @@ class Incedit:
     def hide_find_box(self,widget):
          self.vbox.remove(self.find_box)
          self.FIND = self.FIND + 1
+         self.text_to_find.set_text("")
+         self.find_next_button.set_sensitive(False)
          return
    
 

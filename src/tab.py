@@ -224,6 +224,14 @@ class Tab(gtk.Notebook):
       textbuffer = self.editor.get_buffer()
       textbuffer.set_text(string)  
 
+  def editor_access(self):
+      child = self.get_current_page()
+      self.set_current_page(child)
+      text = self.get_children()
+      textview = text[child].get_child()
+
+      return textview
+
      
 
 

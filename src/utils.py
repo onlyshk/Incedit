@@ -21,7 +21,8 @@
 # cut file only name
 #
 import incedit 
- 
+import gtk
+
 def cut_file_name(path):
  
     list_of_split = path.split("/")
@@ -32,3 +33,11 @@ def cut_file_name(path):
     
     return file_name
  
+def dialog_text_not_find():
+     dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL,
+                                gtk.MESSAGE_INFO, gtk.BUTTONS_OK,"Text not found!")
+     dialog.set_title("Text not found")
+     response = dialog.run()
+        
+     if response == gtk.RESPONSE_OK:
+         dialog.destroy()

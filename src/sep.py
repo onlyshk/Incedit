@@ -20,7 +20,7 @@
 import gtk
 
 #
-#menu separator provide
+#menu and other separators provide
 #
 class SeparatorStruct(gtk.SeparatorMenuItem):
      
