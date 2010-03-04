@@ -17,9 +17,9 @@
 
 - Incedit project Version 0.1.5
 
-- Printing
++ Printing (Need testing!!!)
 - Undo/redo
 + Find next
 + Find 
-+ Bug fix saving file (Need testing)
-+ Bug fix closing tab (Need testing)
++ Bug fix saving file 
++ Bug fix closing tab 

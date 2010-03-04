@@ -24,7 +24,6 @@ import tab
 import about 
 import printer
 import sep
-
 import toolbar
 import undostack
 import utils
