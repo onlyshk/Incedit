@@ -86,14 +86,14 @@ class PrintDoc:
         iter = self.layout.get_iter()
         i=0
    
-        while 1:
-            if i > start_line:
-                line = iter.get_line()
-                cr.rel_move_to(0, self.font_size/2)
-                cr.show_layout_line(line)
-            i += 1
-            if not (i < end_line and iter.next_line()):
-                break
+       while 1:
+           if i > start_line:
+               line = iter.get_line()
+               cr.rel_move_to(0, self.font_size/2)
+               cr.show_layout_line(line)
+           i += 1
+           if not (i < end_line and iter.next_line()):
+               break
 
 
 
