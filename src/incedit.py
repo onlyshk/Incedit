@@ -321,6 +321,7 @@ class Incedit:
         toolbar.ToolBar.create_bar.connect("clicked",self.new_file)
         toolbar.ToolBar.open_bar.connect("clicked",self.open_file)
         toolbar.ToolBar.save_bar.connect("clicked",self.save_as_file)
+        toolbar.ToolBar.print_bar.connect("clicked",self.print_file)
   
         find_button.connect("clicked",self.find)
         close_button.connect("clicked",self.hide_find_box)

@@ -452,8 +452,6 @@ class Incedit:
         prining = printer.PrintDoc(gtk.PRINT_OPERATION_ACTION_PRINT_DIALOG,textbuffer.get_text(textbuffer.get_start_iter(),
                                                                                                textbuffer.get_end_iter()))
 
-        
-        
     #find text provide
     def show_find_box(self,widget): 
           if self.FIND % 2 == 1:
