@@ -24,6 +24,7 @@ import gtk
 #
 class SeparatorStruct(gtk.SeparatorMenuItem):
      
+     #menu separators
      separator1 = gtk.SeparatorMenuItem()
      separator2 = gtk.SeparatorMenuItem()
      separator3 = gtk.SeparatorMenuItem()
@@ -31,6 +32,10 @@ class SeparatorStruct(gtk.SeparatorMenuItem):
      separator5 = gtk.SeparatorMenuItem()
      separator6 = gtk.SeparatorMenuItem()
      separator7 = gtk.SeparatorMenuItem()
+ 
+     #toolbar separators
+     separator8 = gtk.SeparatorToolItem()
+     separator9 = gtk.SeparatorToolItem()
 
      def __init__(self):
          gtk.SeparatorMenuItem.__init__(self)

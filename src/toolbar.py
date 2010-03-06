@@ -38,7 +38,9 @@ class ToolBar(gtk.Toolbar):
          self.insert(self.create_bar,0)
          self.insert(self.open_bar,1)
          self.insert(self.save_bar,2)
-         self.insert(self.print_bar,3)
+         self.insert(sep.SeparatorStruct.separator8,3)
+         self.insert(self.print_bar,4)
+         self.insert(sep.SeparatorStruct.separator9,5)
        
          
  

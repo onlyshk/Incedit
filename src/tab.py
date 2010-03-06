@@ -215,14 +215,10 @@ class Tab(gtk.Notebook):
       textbuffer.move_mark(textbuffer.get_mark("selection_bound"),textbuffer.get_start_iter())
 
   def undo(self): 
-      pass  
+      pass
 
   def redo(self):
       pass
-
-  def find(self,widget,string):
-      textbuffer = self.editor.get_buffer()
-      textbuffer.set_text(string)  
 
   def editor_access(self):
       child = self.get_current_page()

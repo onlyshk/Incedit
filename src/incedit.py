@@ -33,8 +33,8 @@ class Incedit:
     vbox = gtk.VBox(homogeneous = False, spacing = 0)
     main_window = gtk.Window()
     FIND = 1
-    FIND_FOR_NEXT = 1
     opened_files = []
+
     def __init__(self):
        
         self.main_window.set_size_request(800,600)
@@ -423,12 +423,17 @@ class Incedit:
 
     #undo provide
     def on_undo(self,widget):
-         tab.Tab.undo(self.tab_panel)
-         self.main_window.show_all()
-
+         textview = tab.Tab.editor_access(self.tab_panel)
+         incedit_undo = undostack.UndoableBuffer()
+         textview.set_buffer(incedit_undo) 
+         incedit_undo.undo()
+                  
     #redo provide
     def on_redo(self,widget):
-         tab.Tab.redo(self.tab_panel)
+         textview = tab.Tab.editor_access(self.tab_panel)
+         incedit_undo = undostack.UndoableBuffer()
+         textview.set_buffer(incedit_undo) 
+         incedit_undo.redo()
     
     #copy/paste/cut/delete/select_all
     def copy(self,widget):
