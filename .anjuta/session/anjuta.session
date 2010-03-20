@@ -4,7 +4,7 @@ Maximized=1
 Geometry=1280x948+0+51
 
 [File Loader]
-Files=file:///home/shk/Incedit/src/sep.py#25%%%file:///home/shk/Incedit/src/toolbar.py#41%%%file:///home/shk/Incedit/src/incedit.py#324%%%file:///home/shk/Incedit/src/tab.py#165%%%file:///home/shk/Incedit/src/utils.py#42%%%file:///home/shk/Incedit/src/about.py#20%%%file:///home/shk/Incedit/src/printer.py#1
+Files=file:///home/shk/Incedit/src/utils.py#1%%%file:///home/shk/Incedit/src/undostack.py#12%%%file:///home/shk/Incedit/src/toolbar.py#1%%%file:///home/shk/Incedit/src/sep.py#1%%%file:///home/shk/Incedit/src/printer.py#1%%%file:///home/shk/Incedit/src/about.py#1%%%file:///home/shk/Incedit/src/tab.py#49%%%file:///home/shk/Incedit/src/incedit.py#1
 
 [Execution]
 Program arguments=

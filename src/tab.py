@@ -46,7 +46,7 @@ class Tab(gtk.Notebook):
   #add new tab
   #
   def new_tab(self,label):			
-      self.editor = gtk.TextView()
+      self.editor = undostack.TextEditor()
       self.scrolled_window = gtk.ScrolledWindow()
       
       self.add(self.scrolled_window)
@@ -62,7 +62,7 @@ class Tab(gtk.Notebook):
  
       self.already_save.append(self.get_current_page()) 
       label.show_all()
-         
+              
       self.editor.modify_font(pango.FontDescription("Monospace 12"))
 
       self.show_all()
@@ -193,8 +193,10 @@ class Tab(gtk.Notebook):
   #copy/paste/cut
   def copy_buffer(self,widget):
       self.editor.emit("copy_clipboard")
+      
   def cut_buffer(self,widget):
       self.editor.emit("cut_clipboard")
+
   def paste_buffer(self,widget):
       self.editor.emit("paste_clipboard")
 

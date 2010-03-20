@@ -40,7 +40,7 @@ class Incedit:
         self.main_window.set_size_request(800,600)
         self.main_window.set_position(gtk.WIN_POS_CENTER)	
         self.main_window.set_title("Incedit")
-       
+
         self.init_menu()
         self.init_tab()
         self.initializeEditor()
@@ -49,6 +49,9 @@ class Incedit:
         self.main_window.add(self.vbox)
          
         self.tab_panel.new_tab("New File")
+        
+        self.textview = tab.Tab.editor_access(self.tab_panel)
+        self.textbuffer = self.textview.get_buffer()
 
         self.statusbar = gtk.Statusbar()
         self.vbox.pack_end(self.statusbar,False,False)
@@ -292,7 +295,7 @@ class Incedit:
         self.textbuffer = gtk.TextBuffer()  
 
         self.find_box   = gtk.HBox() 
-       
+
         #element for find box
         self.text_to_find = gtk.Entry()
         self.text_to_find.set_size_request(500,26)
@@ -424,16 +427,14 @@ class Incedit:
     #undo provide
     def on_undo(self,widget):
          textview = tab.Tab.editor_access(self.tab_panel)
-         incedit_undo = undostack.UndoableBuffer()
-         textview.set_buffer(incedit_undo) 
-         incedit_undo.undo()
-                  
+         textbuffer = textview.get_buffer()
+         textbuffer.undo() 
+       
     #redo provide
     def on_redo(self,widget):
          textview = tab.Tab.editor_access(self.tab_panel)
-         incedit_undo = undostack.UndoableBuffer()
-         textview.set_buffer(incedit_undo) 
-         incedit_undo.redo()
+         textbuffer = textview.get_buffer()
+         textbuffer.redo() 
     
     #copy/paste/cut/delete/select_all
     def copy(self,widget):
