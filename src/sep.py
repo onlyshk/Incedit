@@ -36,6 +36,8 @@ class SeparatorStruct(gtk.SeparatorMenuItem):
      #toolbar separators
      separator8 = gtk.SeparatorToolItem()
      separator9 = gtk.SeparatorToolItem()
+     separator10 = gtk.SeparatorToolItem()
+     separator11 = gtk.SeparatorToolItem()
 
      def __init__(self):
          gtk.SeparatorMenuItem.__init__(self)

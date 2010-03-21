@@ -30,7 +30,10 @@ class ToolBar(gtk.Toolbar):
      open_bar   = gtk.ToolButton(gtk.STOCK_OPEN)
      save_bar   = gtk.ToolButton(gtk.STOCK_SAVE)  
      print_bar  = gtk.ToolButton(gtk.STOCK_PRINT)
-          
+     undo_bar   = gtk.ToolButton(gtk.STOCK_UNDO) 
+     redo_bar   = gtk.ToolButton(gtk.STOCK_REDO)
+     find_bar   = gtk.ToolButton(gtk.STOCK_FIND) 
+         
      def __init__(self):
          gtk.Toolbar.__init__(self)
   
@@ -41,6 +44,10 @@ class ToolBar(gtk.Toolbar):
          self.insert(sep.SeparatorStruct.separator8,3)
          self.insert(self.print_bar,4)
          self.insert(sep.SeparatorStruct.separator9,5)
-       
+         self.insert(self.undo_bar,6)
+         self.insert(self.redo_bar,7)
+         self.insert(sep.SeparatorStruct.separator10,8)
+         self.insert(self.find_bar,9)
+         self.insert(sep.SeparatorStruct.separator11,10)
          
  
