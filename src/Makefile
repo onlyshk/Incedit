@@ -79,9 +79,9 @@ MKDIR_P = /bin/mkdir -p
 PACKAGE = incedit
 PACKAGE_BUGREPORT = 
 PACKAGE_NAME = incedit
-PACKAGE_STRING = incedit 0.1.2
+PACKAGE_STRING = incedit 0.1.3
 PACKAGE_TARNAME = incedit
-PACKAGE_VERSION = 0.1.2
+PACKAGE_VERSION = 0.1.3
 PATH_SEPARATOR = :
 PYTHON = /usr/bin/python
 PYTHON_EXEC_PREFIX = ${exec_prefix}
@@ -91,7 +91,7 @@ PYTHON_VERSION = 2.5
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1.0
+VERSION = 0.1.3
 abs_builddir = /home/shk/Incedit/src
 abs_srcdir = /home/shk/Incedit/src
 abs_top_builddir = /home/shk/Incedit
@@ -135,12 +135,16 @@ target_alias =
 top_builddir = ..
 top_srcdir = ..
 bin_SCRIPTS = incedit.py
-inceditdir = $(pythondir)/incedit
+inceditdir = $(pythondir)/usr/binsss
 incedit_PYTHON = \
 	incedit.py\
 	utils.py \
 	tab.py \
-	toolbar.py
+	toolbar.py \
+	sep.py \
+	printer.py \
+	undostack.py \
+	about.py 
 
 all: all-am
 

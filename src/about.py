@@ -23,7 +23,7 @@ import tab
 def on_clicked(widget):
      about = gtk.AboutDialog()
      about.set_program_name("Incedit")
-     about.set_version("0.1.2")
+     about.set_version("0.1.3")
      about.set_copyright("(c) Kuleshov Alexander <kuleshovmail@gmail.com>")
      about.set_comments("Incedit - it's lightweight editor")
      about.set_website("http://github.com/onlyshk/Incedit")

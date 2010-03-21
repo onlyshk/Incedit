@@ -10,10 +10,7 @@ incedit_PYTHON = \
 	utils.py \
 	tab.py \
 	toolbar.py \
-	menu.py \
 	sep.py \
-	print.py \
+	printer.py \
 	undostack.py \
 	about.py \
-	find.py \
-	editor.py

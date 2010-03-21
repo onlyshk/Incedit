@@ -11,7 +11,9 @@ Release notes:
  * Tab system
  * Close file
 
-- Incedit project Version 0.1.2
+2010-02-26 Kuleshov Alexander  <kuleshovmail@gmail.com>
+ 
+- Incedit project Version 0.1.2:
 
 * show/hide toolbar
 * show/hide statusbar
@@ -19,6 +21,8 @@ Release notes:
 * saving when tab close
 * About 
 * Some menu prototype
+
+2010-03-20  Kuleshov Alexander  <kuleshovmail@gmail.com>
 
 - Incedit project Version 0.1.3
 

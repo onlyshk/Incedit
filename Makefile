@@ -34,7 +34,7 @@ subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/configure AUTHORS COPYING ChangeLog INSTALL NEWS \
-	install-sh missing py-compile
+	TODO install-sh missing py-compile
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -103,9 +103,9 @@ MKDIR_P = /bin/mkdir -p
 PACKAGE = incedit
 PACKAGE_BUGREPORT = 
 PACKAGE_NAME = incedit
-PACKAGE_STRING = incedit 0.1.2
+PACKAGE_STRING = incedit 0.1.3
 PACKAGE_TARNAME = incedit
-PACKAGE_VERSION = 0.1.2
+PACKAGE_VERSION = 0.1.3
 PATH_SEPARATOR = :
 PYTHON = /usr/bin/python
 PYTHON_EXEC_PREFIX = ${exec_prefix}
@@ -115,7 +115,7 @@ PYTHON_VERSION = 2.5
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
-VERSION = 0.1.2
+VERSION = 0.1.3
 abs_builddir = /home/shk/Incedit
 abs_srcdir = /home/shk/Incedit
 abs_top_builddir = /home/shk/Incedit
@@ -531,7 +531,6 @@ installdirs-am:
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
-         
 install-exec: install-exec-recursive
 install-data: install-data-recursive
 uninstall: uninstall-recursive
