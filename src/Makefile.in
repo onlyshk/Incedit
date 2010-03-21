@@ -135,19 +135,9 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 bin_SCRIPTS = incedit.py
-inceditdir = $(pythondir)/usr/binsss
+inceditdir = $(pythondir)/incedit
 incedit_PYTHON = \
-	incedit.py\
-	utils.py \
-	tab.py \
-	toolbar.py \
-	menu.py \
-	sep.py \
-	print.py \
-	undostack.py \
-	about.py \
-	find.py \
-	editor.py
+	incedit.py
 
 all: all-am
 

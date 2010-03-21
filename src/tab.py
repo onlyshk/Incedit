@@ -227,7 +227,7 @@ class Tab(gtk.Notebook):
       self.set_current_page(child)
       text = self.get_children()
       textview = text[child].get_child()
-
+    
       return textview
 
      
