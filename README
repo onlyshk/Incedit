@@ -14,6 +14,14 @@ At this point ready next func:
 * Printing document
 * Undo/Redo
 
+In Incedit 0.1.4 you see:
+
+- setup.py
+- toolbar all components add
+- statusbar line/row displaying
+- window title changed when new file open
+- save all file when app close
+________________________________________________________________________________
 - AUTHOR - Kuleshov Alexander
 
 - Web    - http://github.com/onlyshk/Incedit
